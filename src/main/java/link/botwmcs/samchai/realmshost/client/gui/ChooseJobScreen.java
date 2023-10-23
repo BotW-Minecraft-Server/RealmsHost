@@ -83,7 +83,10 @@ public class ChooseJobScreen extends Screen {
 
     }
     private void renderButtons() {
-        addRenderableWidget(new WidgetColorButton(10, 10, 150, 20, Component.literal("X"), 0xFFEF9A9A, sender -> {
+        // addRenderableWidget(new WidgetColorButton(10, 10, 150, 20, Component.literal("X"), 0xFFEF9A9A, sender -> {
+        //     super.onClose();
+        // }));
+        addRenderableWidget(new ColorButton(10, 10, 150, 20, Component.literal("X"), 0xFFEF9A9A, sender -> {
             super.onClose();
         }));
     }
