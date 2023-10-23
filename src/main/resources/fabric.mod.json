@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "realmshost",
+  "version": "${version}",
+  "name": "RealmsHost",
+  "description": "A LTSX system provide server realms features",
+  "authors": [
+    "Sam_Chai"
+  ],
+  "contact": {
+    "repo": "https://github.com/BotW-Minecraft-Server/RealmsHost"
+  },
+  "license": "MIT",
+  "icon": "assets/realmshost/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "link.botwmcs.samchai.realmshost.client.RealmsHostClient"
+    ],
+    "main": [
+      "link.botwmcs.samchai.realmshost.RealmsHost"
+    ],
+    "cardinal-components-entity": [
+      "link.botwmcs.samchai.realmshost.capability.CcaHandler"
+    ]
+  },
+  "custom": {
+    "cardinal-components": [
+      "realmshost:player_data"
+    ]
+  },
+  "mixins": [
+    "realmshost.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.23",
+    "fabric": "*",
+    "minecraft": "1.20.2"
+  }
+}
