@@ -24,6 +24,7 @@ public class WorldJoinEvent {
         } else {
             player.sendSystemMessage(net.minecraft.network.chat.Component.nullToEmpty("Welcome back to LTSX!"));
             player.sendSystemMessage(Component.nullToEmpty(CcaHandler.ACCOUNT_COMPONENT_KEY.get(player).isPlayerFirstJoinServer().toString()));
+            PlayerUtilities.openJobChooseScreen((ServerPlayer) player, true);
         }
     }
 }

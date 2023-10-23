@@ -1,5 +1,7 @@
 package link.botwmcs.samchai.realmshost.client.gui;
 
+import link.botwmcs.samchai.realmshost.network.c2s.ChooseJobC2SPacket;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -79,18 +81,34 @@ public class ChooseJobScreen extends Screen {
         int centeredY = this.height / 2;
         guiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
         guiGraphics.drawCenteredString(font, "Choose your job", centeredX, centeredY - 100, 0xFFFFFF);
-        guiGraphics.blit(recipeBookGuiTextures, centeredX - 147 / 2, centeredY - 166 / 2, 0, 0, 147, 166);
+        guiGraphics.blit(recipeBookGuiTextures, centeredX - 147 / 2, centeredY - 166 / 2, 1, 1, 147, 166);
 
     }
     private void renderButtons() {
-        // addRenderableWidget(new WidgetColorButton(10, 10, 150, 20, Component.literal("X"), 0xFFEF9A9A, sender -> {
-        //     super.onClose();
-        // }));
-        addRenderableWidget(new ColorButton(10, 10, 150, 20, Component.literal("X"), 0xFFEF9A9A, sender -> {
+        int buttonStartX = this.width / 2 - 147 / 2 + 8;
+        int buttonStartY = this.height / 2 - 166 / 2 + 8;
+        // Close button
+        addRenderableWidget(new ColorButton(10, 10, 20, 20, Component.literal("X"), 0xFFEF9A9A, sender -> {
             super.onClose();
+        }));
+        // Farmer button
+        addRenderableWidget(new ColorButton(buttonStartX, buttonStartY, 147 - 16, 20, Component.translatable("gui.botwmcs.realmshost.farmer"), 0xFFFBC23E, sender -> {
+            setPlayerJob("farmer");
+        }));
+        // Miner button
+        addRenderableWidget(new ColorButton(buttonStartX, buttonStartY + 20, 147 - 16, 20, Component.translatable("gui.botwmcs.realmshost.miner"), 0xFF6FA836, sender -> {
+            setPlayerJob("miner");
+        }));
+        // Knight button
+        addRenderableWidget(new ColorButton(buttonStartX, buttonStartY + 40, 147 - 16, 20, Component.translatable("gui.botwmcs.realmshost.knight"), 0xFF008FE1, sender -> {
+            setPlayerJob("knight");
         }));
     }
     private void setToolTip(List<Component> list) {
         this.tooltip = list;
+    }
+    private void setPlayerJob(String playerJob) {
+        ClientPlayNetworking.send(new ChooseJobC2SPacket(playerJob));
+        super.onClose();
     }
 }

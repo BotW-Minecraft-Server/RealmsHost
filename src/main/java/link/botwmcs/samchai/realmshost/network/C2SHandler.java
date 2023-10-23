@@ -1,6 +1,7 @@
 package link.botwmcs.samchai.realmshost.network;
 
 import link.botwmcs.samchai.realmshost.network.c2s.ChooseJobC2SPacket;
+import link.botwmcs.samchai.realmshost.util.CapabilitiesHandler;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.chat.Component;
@@ -13,5 +14,6 @@ public class C2SHandler {
 
     private static void onChooseJob(ChooseJobC2SPacket packet, ServerPlayer serverPlayer, PacketSender sender) {
         serverPlayer.sendSystemMessage(Component.nullToEmpty("You chose " + packet.jobName() + "!"));
+        CapabilitiesHandler.setPlayerJob(serverPlayer, packet.jobName());
     }
 }
