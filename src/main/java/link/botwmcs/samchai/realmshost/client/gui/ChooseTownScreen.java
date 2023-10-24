@@ -1,20 +1,17 @@
 package link.botwmcs.samchai.realmshost.client.gui;
 
-import ca.weblite.objc.Client;
 import link.botwmcs.samchai.realmshost.network.c2s.ChooseTownC2SPacket;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 
-import java.util.function.Supplier;
 
 public class ChooseTownScreen extends Screen {
     private final boolean showBackground;
