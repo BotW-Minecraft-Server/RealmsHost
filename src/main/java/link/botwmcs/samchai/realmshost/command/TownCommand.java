@@ -241,19 +241,17 @@ public class TownCommand {
                                 .executes(context -> {
                                     String townName = StringArgumentType.getString(context, "townName");
                                     Town town = context.getSource().getLevel().getComponent(TownCompoundHandler.TOWN_COMPONENT_KEY).getTown(townName);
-                                    ServerPlayer townOwner = context.getSource().getServer().getPlayerList().getPlayer(town.owner);
                                     String residentsList = "";
                                     context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.check.name", town.townName));
                                     context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.check.comment", town.townComment));
-                                    context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.check.owner", townOwner.getName().getString()));
+                                    context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.check.owner", town.owner.toString()));
                                     context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.check.isPublic", town.isPublic));
                                     context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.check.isOpen", town.isOpen));
                                     context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.check.isStared", town.isStared));
                                     context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.check.townLevel", town.townLevel));
                                     context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.check.townFunds", town.townFunds));
                                     for (UUID residentUUIDs : town.residentUUIDs.stream().toList()) {
-                                        ServerPlayer residents = context.getSource().getServer().getPlayerList().getPlayer(residentUUIDs);
-                                        residentsList += residents.getName().getString() + ", ";
+                                        residentsList += residentUUIDs.toString() + ", ";
                                     }
                                     context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.check.townMembers", residentsList));
                                     return 1;
