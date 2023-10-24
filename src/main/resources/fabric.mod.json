@@ -21,12 +21,16 @@
       "link.botwmcs.samchai.realmshost.RealmsHost"
     ],
     "cardinal-components-entity": [
-      "link.botwmcs.samchai.realmshost.capability.CcaHandler"
+      "link.botwmcs.samchai.realmshost.capability.AccountHandler"
+    ],
+    "cardinal-components-world": [
+      "link.botwmcs.samchai.realmshost.capability.town.TownCompoundHandler"
     ]
   },
   "custom": {
     "cardinal-components": [
-      "realmshost:player_data"
+      "realmshost:player_data",
+      "realmshost:town_data"
     ]
   },
   "mixins": [

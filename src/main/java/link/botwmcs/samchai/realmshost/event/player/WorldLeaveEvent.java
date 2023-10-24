@@ -1,6 +1,6 @@
 package link.botwmcs.samchai.realmshost.event.player;
 
-import link.botwmcs.samchai.realmshost.capability.CcaHandler;
+import link.botwmcs.samchai.realmshost.capability.AccountHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -10,8 +10,8 @@ public class WorldLeaveEvent {
         if (world.isClientSide) {
             return;
         }
-        if (CcaHandler.ACCOUNT_COMPONENT_KEY.get(player).isPlayerFirstJoinServer()) {
-            CcaHandler.ACCOUNT_COMPONENT_KEY.get(player).setPlayerFirstJoinServer(false);
+        if (AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).isPlayerFirstJoinServer()) {
+            AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setPlayerFirstJoinServer(false);
         }
     }
 }

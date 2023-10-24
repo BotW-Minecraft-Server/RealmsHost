@@ -1,6 +1,6 @@
 package link.botwmcs.samchai.realmshost.event.player;
 
-import link.botwmcs.samchai.realmshost.capability.CcaHandler;
+import link.botwmcs.samchai.realmshost.capability.AccountHandler;
 import link.botwmcs.samchai.realmshost.util.PlayerUtilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -15,15 +15,15 @@ public class WorldJoinEvent {
 
             return;
         }
-        if (CcaHandler.ACCOUNT_COMPONENT_KEY.get(player).isPlayerFirstJoinServer()) {
+        if (AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).isPlayerFirstJoinServer()) {
             player.sendSystemMessage(net.minecraft.network.chat.Component.nullToEmpty("Welcome to LTSX!"));
-            player.sendSystemMessage(Component.nullToEmpty(CcaHandler.ACCOUNT_COMPONENT_KEY.get(player).isPlayerFirstJoinServer().toString()));
+            player.sendSystemMessage(Component.nullToEmpty(AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).isPlayerFirstJoinServer().toString()));
             // Open ChooseJobScreen
             PlayerUtilities.openJobChooseScreen((ServerPlayer) player, true);
 
         } else {
             player.sendSystemMessage(net.minecraft.network.chat.Component.nullToEmpty("Welcome back to LTSX!"));
-            player.sendSystemMessage(Component.nullToEmpty(CcaHandler.ACCOUNT_COMPONENT_KEY.get(player).isPlayerFirstJoinServer().toString()));
+            player.sendSystemMessage(Component.nullToEmpty(AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).isPlayerFirstJoinServer().toString()));
             PlayerUtilities.openJobChooseScreen((ServerPlayer) player, true);
         }
     }

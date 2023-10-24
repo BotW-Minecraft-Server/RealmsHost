@@ -1,43 +1,59 @@
 package link.botwmcs.samchai.realmshost.util;
 
-import link.botwmcs.samchai.realmshost.capability.CcaHandler;
+import link.botwmcs.samchai.realmshost.capability.AccountHandler;
+import link.botwmcs.samchai.realmshost.capability.town.Town;
+import link.botwmcs.samchai.realmshost.capability.town.TownCompound;
+import link.botwmcs.samchai.realmshost.capability.town.TownCompoundHandler;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import org.apache.logging.log4j.core.jmx.Server;
 
 public class CapabilitiesHandler {
     public static String getPlayerJob(Player player) {
-        return CcaHandler.ACCOUNT_COMPONENT_KEY.get(player).getPlayerJob();
+        return AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getPlayerJob();
     }
     public static String getPlayerTown(Player player) {
-        return CcaHandler.ACCOUNT_COMPONENT_KEY.get(player).getPlayerTown();
+        return AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getPlayerTown();
     }
     public static Integer getPlayerJobXp(Player player) {
-        return CcaHandler.ACCOUNT_COMPONENT_KEY.get(player).getPlayerJobXp();
+        return AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getPlayerJobXp();
     }
     public static Boolean isPlayerFirstJoinServer(Player player) {
-        return CcaHandler.ACCOUNT_COMPONENT_KEY.get(player).isPlayerFirstJoinServer();
+        return AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).isPlayerFirstJoinServer();
     }
 
     public static void setPlayerJob(Player player, String playerJob) {
-        CcaHandler.ACCOUNT_COMPONENT_KEY.get(player).setPlayerJob(playerJob);
+        AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setPlayerJob(playerJob);
     }
     public static void setPlayerTown(Player player, String playerTown) {
-        CcaHandler.ACCOUNT_COMPONENT_KEY.get(player).setPlayerTown(playerTown);
+        AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setPlayerTown(playerTown);
     }
     public static void setPlayerJobXp(Player player, Integer playerJobXp) {
-        CcaHandler.ACCOUNT_COMPONENT_KEY.get(player).setPlayerJobXp(playerJobXp);
+        AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setPlayerJobXp(playerJobXp);
     }
 
     public static void setPlayerJobAsFarmer(Player player) {
-        CcaHandler.ACCOUNT_COMPONENT_KEY.get(player).setPlayerJob("farmer");
+        AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setPlayerJob("farmer");
     }
     public static void setPlayerJobAsMiner(Player player) {
-        CcaHandler.ACCOUNT_COMPONENT_KEY.get(player).setPlayerJob("miner");
+        AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setPlayerJob("miner");
     }
     public static void setPlayerJobAsKnight(Player player) {
-        CcaHandler.ACCOUNT_COMPONENT_KEY.get(player).setPlayerJob("knight");
+        AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setPlayerJob("knight");
     }
     public static void setPlayerJobAsDefault(Player player) {
-        CcaHandler.ACCOUNT_COMPONENT_KEY.get(player).setPlayerJob("default");
+        AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setPlayerJob("default");
+    }
+
+    public static void createTown(Level world, Player owner, String townName, String townComment, boolean isPublic, boolean isOpen, boolean isStared, int townLevel, int townFunds, BlockPos townSpawn, BlockPos townHall, BlockPos townMarket, BlockPos townBank, BlockPos townJobBoard, BlockPos townYard) {
+        Town town = new Town(townName, townComment, isPublic, isOpen, isStared, townLevel, townFunds, townSpawn, townHall, townMarket, townBank, townJobBoard, townYard);
+        town.addResident((ServerPlayer) owner);
+        town.addClaimedChunk(PlayerUtilities.getPlayerChunkPos((ServerPlayer) owner));
+        world.getComponent(TownCompoundHandler.TOWN_COMPONENT_KEY).addTown(town);
+    }
+    public static void createTown(Level world, Player owner, String townName) {
+        createTown(world, owner, townName, "A default town comment", true, true, false, 0, 0, owner.getOnPos(), owner.getOnPos(), owner.getOnPos(), owner.getOnPos(), owner.getOnPos(), owner.getOnPos());
     }
 }

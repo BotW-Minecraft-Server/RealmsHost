@@ -45,25 +45,25 @@ public class Account implements IAccount, AutoSyncedComponent {
     @Override
     public void setPlayerJob(String playerJob) {
         this.playerJob = playerJob;
-        CcaHandler.ACCOUNT_COMPONENT_KEY.sync(this.provider);
+        AccountHandler.ACCOUNT_COMPONENT_KEY.sync(this.provider);
     }
 
     @Override
     public void setPlayerTown(String playerTown) {
         this.playerTown = playerTown;
-        CcaHandler.ACCOUNT_COMPONENT_KEY.sync(this.provider);
+        AccountHandler.ACCOUNT_COMPONENT_KEY.sync(this.provider);
     }
 
     @Override
     public void setPlayerJobXp(Integer playerJobXp) {
         this.playerJobXp = playerJobXp;
-        CcaHandler.ACCOUNT_COMPONENT_KEY.sync(this.provider);
+        AccountHandler.ACCOUNT_COMPONENT_KEY.sync(this.provider);
     }
 
     @Override
     public void setPlayerFirstJoinServer(Boolean playerFirstJoinServer) {
         this.playerFirstJoinServer = playerFirstJoinServer;
-        CcaHandler.ACCOUNT_COMPONENT_KEY.sync(this.provider);
+        AccountHandler.ACCOUNT_COMPONENT_KEY.sync(this.provider);
 
     }
 
