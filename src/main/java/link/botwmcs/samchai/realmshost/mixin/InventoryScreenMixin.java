@@ -22,7 +22,12 @@ public class InventoryScreenMixin {
         Minecraft minecraft = Minecraft.getInstance();
         guiGraphics.pose().pushPose();
 
-        String jobs = "Jobs: " + CapabilitiesHandler.getPlayerJob(minecraft.player);
-        guiGraphics.drawCenteredString(minecraft.font, jobs, guiGraphics.guiWidth() / 2, guiGraphics.guiHeight() / 2 - 100, 0xFFFFFF);
+        String job = "Job: " + CapabilitiesHandler.getPlayerJob(minecraft.player);
+        String town = "Town: " + CapabilitiesHandler.getPlayerTown(minecraft.player);
+        String jobXp = "Job XP: " + CapabilitiesHandler.getPlayerJobXp(minecraft.player);
+        guiGraphics.drawCenteredString(minecraft.font, job, guiGraphics.guiWidth() / 2, guiGraphics.guiHeight() / 2 - 120, 0xFFFFFF);
+        guiGraphics.drawCenteredString(minecraft.font, town, guiGraphics.guiWidth() / 2, guiGraphics.guiHeight() / 2 - 110, 0xFFFFFF);
+        guiGraphics.drawCenteredString(minecraft.font, jobXp, guiGraphics.guiWidth() / 2, guiGraphics.guiHeight() / 2 - 100, 0xFFFFFF);
+
     }
 }

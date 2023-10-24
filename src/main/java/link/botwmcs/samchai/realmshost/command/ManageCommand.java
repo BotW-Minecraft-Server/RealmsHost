@@ -79,7 +79,7 @@ public class ManageCommand {
                                                 .executes(context -> {
                                                     Collection<ServerPlayer> target = EntityArgument.getPlayers(context, "target");
                                                     for (ServerPlayer targetPlayer : target) {
-                                                        PlayerUtilities.openJobChooseScreen(targetPlayer, false);
+                                                        PlayerUtilities.openTownChooseScreen(targetPlayer, false);
                                                     }
                                                     return 1;
                                                 })

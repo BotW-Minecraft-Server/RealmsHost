@@ -1,7 +1,13 @@
 {
-  "chat.botwmcs.realmshost.inClientMode": "You are in client mode to use LTSX mod. Some features are disabled.",
-  "gui.botwmcs.realmshost.chooseJobScreen.title": "Choose your Job",
-  "gui.botwmcs.realmshost.farmer": "Farmer",
-  "gui.botwmcs.realmshost.miner": "Miner",
-  "gui.botwmcs.realmshost.knight": "Knight"
+    "chat.botwmcs.realmshost.inClientMode": "You are in client mode to use LTSX mod. Some features are disabled.",
+    "gui.botwmcs.realmshost.chooseJobScreen.title": "Choose your Job",
+    "gui.botwmcs.realmshost.chooseTownScreen.title": "Choose your Town",
+    "gui.botwmcs.realmshost.farmer": "Farmer",
+    "gui.botwmcs.realmshost.farmer.tooltip": "Farmers are the backbone of the economy. They are able to grow crops and breed animals.",
+    "gui.botwmcs.realmshost.miner": "Miner",
+    "gui.botwmcs.realmshost.miner.tooltip": "Miners are able to mine ores and smelt them into ingots.",
+    "gui.botwmcs.realmshost.knight": "Knight",
+    "gui.botwmcs.realmshost.knight.tooltip": "Knights are able to fight mobs and protect the realm.",
+    "gui.botwmcs.realmshost.defaultTown": "Default Town",
+    "gui.botwmcs.realmshost.defaultTown.tooltip": "The default town is the town that all new players will join."
 }
