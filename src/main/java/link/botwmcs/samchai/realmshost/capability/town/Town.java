@@ -8,6 +8,7 @@ import java.util.*;
 
 public class Town {
     public List<UUID> residentUUIDs = new ArrayList<>();
+    public UUID owner;
     public String townName;
     public String townComment;
     public boolean isPublic;
@@ -23,9 +24,10 @@ public class Town {
     public BlockPos townJobBoard;
     public BlockPos townYard;
 
-    public Town(String townName, String townComment, boolean isPublic, boolean isOpen, boolean isStared, int townLevel, int townFunds, BlockPos townSpawn, BlockPos townHall, BlockPos townMarket, BlockPos townBank, BlockPos townJobBoard, BlockPos townYard) {
+    public Town(String townName, String townComment, UUID owner, boolean isPublic, boolean isOpen, boolean isStared, int townLevel, int townFunds, BlockPos townSpawn, BlockPos townHall, BlockPos townMarket, BlockPos townBank, BlockPos townJobBoard, BlockPos townYard) {
         this.townName = townName;
         this.townComment = townComment;
+        this.owner = owner;
         this.isPublic = isPublic;
         this.isOpen = isOpen;
         this.isStared = isStared;
@@ -39,9 +41,6 @@ public class Town {
         this.townYard = townYard;
     }
 
-    public Town(String townName) {
-    }
-
     public void addResident(ServerPlayer serverPlayer) {
         residentUUIDs.add(serverPlayer.getUUID());
     }
@@ -53,6 +52,9 @@ public class Town {
     }
     public void setTownComment(String townComment) {
         this.townComment = townComment;
+    }
+    public void setOwner(ServerPlayer owner) {
+        this.owner = owner.getUUID();
     }
     public void setTownLevel(int townLevel) {
         this.townLevel = townLevel;

@@ -1,6 +1,7 @@
 package link.botwmcs.samchai.realmshost.capability.town;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
+import link.botwmcs.samchai.realmshost.RealmsHost;
 import link.botwmcs.samchai.realmshost.util.TagUtilities;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -8,15 +9,18 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.ChunkPos;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class TownCompound implements ITownCompound, AutoSyncedComponent {
     private final Map<String, Town> towns = new HashMap<>();
     @Override
     public Town getTown(String townName) {
         return towns.get(townName);
+    }
+
+    @Override
+    public Map<String, Town> getAllTowns() {
+        return towns;
     }
 
     @Override
@@ -38,6 +42,7 @@ public class TownCompound implements ITownCompound, AutoSyncedComponent {
             Town town = new Town(
                     townTag.getString("townName"),
                     townTag.getString("townComment"),
+                    townTag.getUUID("owner"),
                     townTag.getBoolean("isPublic"),
                     townTag.getBoolean("isOpen"),
                     townTag.getBoolean("isStared"),
@@ -55,7 +60,7 @@ public class TownCompound implements ITownCompound, AutoSyncedComponent {
             town.isPublic = townTag.getBoolean("isPublic");
             ListTag residentTag = townTag.getList("residents", 11);
             for (Tag uuidTag : residentTag) {
-                town.residentUUIDs.add(NbtUtils.loadUUID((CompoundTag) uuidTag));
+                town.residentUUIDs.add(NbtUtils.loadUUID(uuidTag));
             }
             town.isOpen = townTag.getBoolean("isOpen");
             town.isStared = townTag.getBoolean("isStared");
@@ -82,6 +87,7 @@ public class TownCompound implements ITownCompound, AutoSyncedComponent {
             CompoundTag townTag = new CompoundTag();
             townTag.putString("townName", town.townName);
             townTag.putString("townComment", town.townComment);
+            townTag.putUUID("owner", town.owner);
             townTag.putBoolean("isPublic", town.isPublic);
             ListTag residentTag = new ListTag();
             for (UUID uuid : town.residentUUIDs) {

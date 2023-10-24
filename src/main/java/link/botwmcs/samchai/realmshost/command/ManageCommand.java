@@ -18,6 +18,7 @@ import java.util.Collection;
 public class ManageCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("manage")
+                .requires(commandSourceStack -> commandSourceStack.hasPermission(4))
                 .then(Commands.argument("target", EntityArgument.player())
                         .then(Commands.literal("job")
                                 .then(Commands.literal("get")
