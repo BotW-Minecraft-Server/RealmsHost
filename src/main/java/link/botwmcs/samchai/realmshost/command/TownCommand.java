@@ -4,22 +4,18 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import link.botwmcs.samchai.realmshost.capability.town.Town;
 import link.botwmcs.samchai.realmshost.capability.town.TownCompoundHandler;
 import link.botwmcs.samchai.realmshost.util.CapabilitiesHandler;
-import link.botwmcs.samchai.realmshost.util.PlayerUtilities;
 import link.botwmcs.samchai.realmshost.util.ServerUtilities;
+import link.botwmcs.samchai.realmshost.util.TownHandler;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 
@@ -60,6 +56,10 @@ public class TownCommand {
                                                                                                     if (spawnTownManagerBlock) {
                                                                                                         // TODO：Give player some town manager block that have NBT data
                                                                                                     }
+                                                                                                    if (world.getComponent(TownCompoundHandler.TOWN_COMPONENT_KEY).getAllTowns().containsKey(townName)) {
+                                                                                                        context.getSource().sendFailure(Component.translatable("chat.botwmcs.realmshost.town.create.fail"));
+                                                                                                        return 0;
+                                                                                                    }
                                                                                                     CapabilitiesHandler.createTown(world, townOwner, townName, townComment, isPublic, isOpen, isStared, townLevel, townFunds, townSpawn, townHall, townMarket, townBank, townJobBoard, townYard);
                                                                                                     Town town = context.getSource().getLevel().getComponent(TownCompoundHandler.TOWN_COMPONENT_KEY).getTown(townName);
                                                                                                     context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.check.name", town.townName));
@@ -69,8 +69,6 @@ public class TownCommand {
                                                                                                     context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.check.isOpen", town.isOpen));
                                                                                                     context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.check.isStared", town.isStared));
                                                                                                     context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.check.townLevel", town.townLevel));
-
-
                                                                                                     return 1;
                                                                                                 })
                                                                                         )
@@ -95,8 +93,13 @@ public class TownCommand {
                                 .executes(context -> {
                                     String townName = StringArgumentType.getString(context, "townName");
                                     Town town = context.getSource().getLevel().getComponent(TownCompoundHandler.TOWN_COMPONENT_KEY).getTown(townName);
-                                    context.getSource().getLevel().getComponent(TownCompoundHandler.TOWN_COMPONENT_KEY).removeTown(town);
-                                    return 1;
+                                    if (TownHandler.removeTown(context.getSource().getLevel(), town)) {
+                                        context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.remove"));
+                                        return 1;
+                                    } else {
+                                        context.getSource().sendFailure(Component.translatable("chat.botwmcs.realmshost.town.remove.fail"));
+                                        return 0;
+                                    }
                                 })
                         )
                 )
@@ -232,9 +235,13 @@ public class TownCommand {
                                                     String townName = StringArgumentType.getString(context, "townName");
                                                     ServerPlayer target = EntityArgument.getPlayer(context, "target");
                                                     Town town = context.getSource().getLevel().getComponent(TownCompoundHandler.TOWN_COMPONENT_KEY).getTown(townName);
-                                                    town.removeResident(target);
-                                                    context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.modify.townMembers.remove", target.getName().getString(), townName));
-                                                    return 1;
+                                                    if (TownHandler.removeTownResidents(town, target)) {
+                                                        context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.modify.townMembers.remove", target.getName().getString(), townName));
+                                                        return 1;
+                                                    } else {
+                                                        context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.modify.fail"));
+                                                        return 0;
+                                                    }
                                                 })
                                         )
                                 )
@@ -244,14 +251,13 @@ public class TownCommand {
                                                     String townName = StringArgumentType.getString(context, "townName");
                                                     ChunkPos chunkPos = ServerUtilities.blockPosToChunkPos(BlockPosArgument.getBlockPos(context, "blockPos"));
                                                     Town town = context.getSource().getLevel().getComponent(TownCompoundHandler.TOWN_COMPONENT_KEY).getTown(townName);
-                                                    if (town.townClaimedChunks.contains(chunkPos)) {
-                                                        context.getSource().sendFailure(Component.translatable("chat.botwmcs.realmshost.town.modify.fail"));
-                                                    } else {
-                                                        town.addClaimedChunk(chunkPos);
+                                                    if (TownHandler.addTownClaimedChunks(town, chunkPos)) {
                                                         context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.modify.townChunks.add", chunkPos.toString(), townName));
+                                                        return 1;
+                                                    } else {
+                                                        context.getSource().sendFailure(Component.translatable("chat.botwmcs.realmshost.town.modify.fail"));
+                                                        return 0;
                                                     }
-                                                    return 1;
-
                                                 })
                                         )
                                 )
@@ -261,15 +267,13 @@ public class TownCommand {
                                                     String townName = StringArgumentType.getString(context, "townName");
                                                     ChunkPos chunkPos = ServerUtilities.blockPosToChunkPos(BlockPosArgument.getBlockPos(context, "blockPos"));
                                                     Town town = context.getSource().getLevel().getComponent(TownCompoundHandler.TOWN_COMPONENT_KEY).getTown(townName);
-                                                    for (ChunkPos pos : town.townClaimedChunks) {
-                                                        if (pos.equals(chunkPos)) {
-                                                            town.removeClaimedChunk(chunkPos);
-                                                            context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.modify.townChunks.remove", chunkPos.toString(), townName));
-                                                            return 1;
-                                                        }
+                                                    if (TownHandler.removeTownClaimedChunks(town, chunkPos)) {
+                                                        context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.modify.townChunks.remove", chunkPos.toString(), townName));
+                                                        return 1;
+                                                    } else {
+                                                        context.getSource().sendFailure(Component.translatable("chat.botwmcs.realmshost.town.modify.fail"));
+                                                        return 0;
                                                     }
-                                                    context.getSource().sendFailure(Component.translatable("chat.botwmcs.realmshost.town.modify.fail"));
-                                                    return 1;
                                                 })
                                         )
                                 )

@@ -1,5 +1,9 @@
 {
     "chat.botwmcs.realmshost.inClientMode": "You are in client mode to use LTSX mod. Some features are disabled.",
+    "chat.botwmcs.realmshost.town.remove": "Town removed successfully.",
+    "chat.botwmcs.realmshost.town.remove.fail": "§cTown removed failed.",
+    "chat.botwmcs.realmshost.town.create": "Town created successfully.",
+    "chat.botwmcs.realmshost.town.create.fail": "§cTown created failed.",
     "chat.botwmcs.realmshost.town.list.raw": "§eTown List: §r%s",
     "chat.botwmcs.realmshost.town.list.fail": "§cTown list is empty.",
     "chat.botwmcs.realmshost.town.modify.success": "§aTown modified successfully.",

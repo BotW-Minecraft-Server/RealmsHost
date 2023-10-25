@@ -10,7 +10,9 @@ import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.MerchantMenu;
 
 
 public class ChooseTownScreen extends Screen {
@@ -26,7 +28,9 @@ public class ChooseTownScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        renderButtons();
+//        renderButtons();
+        int buttonStartX = this.width / 2 - 147 / 2 + 8;
+        int buttonStartY = this.height / 2 - 166 / 2 + 8;
     }
     @Override
     public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float f) {
@@ -86,6 +90,31 @@ public class ChooseTownScreen extends Screen {
             setPlayerTown("default");
         }));
         defaultTownButton.setTooltip(Tooltip.create(Component.translatable("gui.botwmcs.realmshost.defaultTown.tooltip")));
+        final AbstractWidget town1Button = addRenderableWidget(new ColorButton(buttonStartX, buttonStartY + 20, 147 - 16, 20, Component.nullToEmpty("default 2"), 0x00FFFFFF, sender -> {
+            setPlayerTown("town1");
+        }));
+        final AbstractWidget town2Button = addRenderableWidget(new ColorButton(buttonStartX, buttonStartY + 40, 147 - 16, 20, Component.nullToEmpty("default 3"), 0x00FFFFFF, sender -> {
+            setPlayerTown("town2");
+        }));
+        final AbstractWidget town3Button = addRenderableWidget(new ColorButton(buttonStartX, buttonStartY + 60, 147 - 16, 20, Component.nullToEmpty("default 4"), 0x00FFFFFF, sender -> {
+            setPlayerTown("town3");
+        }));
+        final AbstractWidget town4Button = addRenderableWidget(new ColorButton(buttonStartX, buttonStartY + 80, 147 - 16, 20, Component.nullToEmpty("default 5"), 0x00FFFFFF, sender -> {
+            setPlayerTown("town4");
+        }));
+        final AbstractWidget town5Button = addRenderableWidget(new ColorButton(buttonStartX, buttonStartY + 100, 147 - 16, 20, Component.nullToEmpty("default 6"), 0x00FFFFFF, sender -> {
+            setPlayerTown("town5");
+        }));
+        final AbstractWidget town6Button = addRenderableWidget(new ColorButton(buttonStartX, buttonStartY + 120, 147 - 16, 20, Component.nullToEmpty("default 7"), 0x00FFFFFF, sender -> {
+            setPlayerTown("town6");
+        }));
+        final AbstractWidget town7Button = addRenderableWidget(new ColorButton(buttonStartX, buttonStartY + 140, 147 - 16, 20, Component.nullToEmpty("default 8"), 0x00FFFFFF, sender -> {
+            setPlayerTown("town7");
+        }));
+
+    }
+    private void renderScrollableTownList() {
+
     }
     private void setPlayerTown(String townName) {
         ClientPlayNetworking.send(new ChooseTownC2SPacket(townName));
