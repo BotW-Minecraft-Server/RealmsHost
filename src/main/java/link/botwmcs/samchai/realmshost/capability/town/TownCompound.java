@@ -1,12 +1,13 @@
 package link.botwmcs.samchai.realmshost.capability.town;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
-import link.botwmcs.samchai.realmshost.util.TagUtilities;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.block.Block;
 
 import java.util.*;
 
@@ -31,6 +32,21 @@ public class TownCompound implements ITownCompound, AutoSyncedComponent {
     public void removeTown(Town town) {
         towns.remove(town.townName);
     }
+
+    // NBT tag types for reference:
+    // 0:  TAG_End
+    // 1:  TAG_Byte
+    // 2:  TAG_Short
+    // 3:  TAG_Int
+    // 4:  TAG_Long
+    // 5:  TAG_Float
+    // 6:  TAG_Double
+    // 7:  TAG_Byte_Array
+    // 8:  TAG_String
+    // 9:  TAG_List
+    // 10: TAG_Compound
+    // 11: TAG_Int_Array
+    // 12: TAG_Long_Array
 
     @Override
     public void readFromNbt(CompoundTag tag) {
@@ -65,9 +81,13 @@ public class TownCompound implements ITownCompound, AutoSyncedComponent {
             town.isStared = townTag.getBoolean("isStared");
             town.townLevel = townTag.getInt("townLevel");
             town.townFunds = townTag.getInt("townFunds");
-            ListTag claimedChunksTag = townTag.getList("claimedChunks", 11);
+            ListTag claimedChunksTag = townTag.getList("claimedChunks", 10);
             for (Tag posTag : claimedChunksTag) {
-                town.townClaimedChunks.add(TagUtilities.readChunkPosFromTag((CompoundTag) posTag));
+                CompoundTag chunkTag = (CompoundTag) posTag;
+                int x = chunkTag.getInt("X");
+                int z = chunkTag.getInt("Z");
+                ChunkPos chunkPos = new ChunkPos(x, z);
+                town.townClaimedChunks.add(chunkPos);
             }
             town.townSpawn = NbtUtils.readBlockPos(townTag.getCompound("townSpawn"));
             town.townHall = NbtUtils.readBlockPos(townTag.getCompound("townHall"));
@@ -98,8 +118,11 @@ public class TownCompound implements ITownCompound, AutoSyncedComponent {
             townTag.putInt("townLevel", town.townLevel);
             townTag.putInt("townFunds", town.townFunds);
             ListTag claimedChunksTag = new ListTag();
-            for (ChunkPos pos : town.townClaimedChunks) {
-                claimedChunksTag.add(TagUtilities.writeChunkPosToTag(pos));
+            for (ChunkPos chunkPos : town.townClaimedChunks) {
+                CompoundTag chunkTag = new CompoundTag();
+                chunkTag.putInt("X", chunkPos.x);
+                chunkTag.putInt("Z", chunkPos.z);
+                claimedChunksTag.add(chunkTag);
             }
             townTag.put("claimedChunks", claimedChunksTag);
             townTag.put("townSpawn", NbtUtils.writeBlockPos(town.townSpawn));

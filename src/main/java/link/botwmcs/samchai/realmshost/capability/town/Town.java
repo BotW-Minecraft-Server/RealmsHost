@@ -8,6 +8,7 @@ import java.util.*;
 
 public class Town {
     public List<UUID> residentUUIDs = new ArrayList<>();
+    public List<ChunkPos> townClaimedChunks = new ArrayList<>();
     public UUID owner;
     public String townName;
     public String townComment;
@@ -16,7 +17,6 @@ public class Town {
     public boolean isStared;
     public int townLevel;
     public int townFunds;
-    public Set<ChunkPos> townClaimedChunks = new HashSet<>();
     public BlockPos townSpawn;
     public BlockPos townHall;
     public BlockPos townMarket;
