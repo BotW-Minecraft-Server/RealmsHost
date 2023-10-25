@@ -54,7 +54,7 @@ public class CapabilitiesHandler {
     public static void createTown(Level world, Player owner, String townName, String townComment, boolean isPublic, boolean isOpen, boolean isStared, int townLevel, int townFunds, BlockPos townSpawn, BlockPos townHall, BlockPos townMarket, BlockPos townBank, BlockPos townJobBoard, BlockPos townYard) {
         Town town = new Town(townName, townComment, owner.getUUID(), isPublic, isOpen, isStared, townLevel, townFunds, townSpawn, townHall, townMarket, townBank, townJobBoard, townYard);
         town.addResident((ServerPlayer) owner);
-        town.addClaimedChunk(PlayerUtilities.getPlayerChunkPos((ServerPlayer) owner));
+        town.addClaimedChunk(PlayerUtilities.getPlayerChunkPos(owner));
         world.getComponent(TownCompoundHandler.TOWN_COMPONENT_KEY).addTown(town);
         if (!world.isClientSide()) {
             ServerUtilities.saveAll(Objects.requireNonNull(world.getServer()));

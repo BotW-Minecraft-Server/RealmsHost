@@ -1,7 +1,6 @@
 package link.botwmcs.samchai.realmshost.capability.town;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
-import link.botwmcs.samchai.realmshost.RealmsHost;
 import link.botwmcs.samchai.realmshost.util.TagUtilities;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;

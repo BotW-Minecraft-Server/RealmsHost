@@ -4,11 +4,13 @@ import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
 import net.minecraft.ReportedException;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.level.BaseCommandBlock;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
@@ -23,6 +25,9 @@ public class ServerUtilities {
     }
     public static void saveChunks(MinecraftServer server) {
         server.saveAllChunks(true, true, true);
+    }
+    public static ChunkPos blockPosToChunkPos(BlockPos blockPos) {
+        return new ChunkPos(blockPos);
     }
     public static String runCommandBlock(ServerLevel serverLevel, @Nullable Vec3 vec, String command) {
         BaseCommandBlock bcb = new BaseCommandBlock() {

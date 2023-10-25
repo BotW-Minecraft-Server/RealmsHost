@@ -6,6 +6,7 @@ import link.botwmcs.samchai.realmshost.network.s2c.OpenChooseTownScreenS2CPacket
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ChunkPos;
 
 public class PlayerUtilities {
@@ -18,7 +19,7 @@ public class PlayerUtilities {
     public static void openTownChooseScreen(ServerPlayer player, boolean showBackground) {
         ServerPlayNetworking.send(player, new OpenChooseTownScreenS2CPacket(showBackground));
     }
-    public static ChunkPos getPlayerChunkPos(ServerPlayer player) {
-        return new ChunkPos(player.getOnPos());
+    public static ChunkPos getPlayerChunkPos(Player player) {
+        return new ChunkPos(player.blockPosition());
     }
 }
