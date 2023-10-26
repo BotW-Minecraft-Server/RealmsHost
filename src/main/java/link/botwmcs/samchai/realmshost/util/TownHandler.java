@@ -15,6 +15,12 @@ import java.util.Map;
 import java.util.UUID;
 
 public class TownHandler {
+    public static Map<String, Town> getTowns(Level world) {
+        return world.getComponent(TownCompoundHandler.TOWN_COMPONENT_KEY).getAllTowns();
+    }
+    public static List<Town> getTownList(Level world) {
+        return new ArrayList<>(world.getComponent(TownCompoundHandler.TOWN_COMPONENT_KEY).getAllTowns().values());
+    }
     public static boolean removeTown(Level world, Town town) {
         if (world.getComponent(TownCompoundHandler.TOWN_COMPONENT_KEY).getAllTowns().containsValue(town)) {
             world.getComponent(TownCompoundHandler.TOWN_COMPONENT_KEY).removeTown(town);

@@ -28,6 +28,6 @@ public class S2CHandler {
     }
     @Environment(EnvType.CLIENT)
     private static void openChooseTownScreen(OpenChooseTownScreenS2CPacket packet, Player player, PacketSender sender) {
-        Minecraft.getInstance().setScreen(new ChooseTownScreen(Component.translatable("gui.botwmcs.realmshost.chooseTownScreen.title"), player, packet.showBackground()));
+        Minecraft.getInstance().setScreen(new ChooseTownScreen(Component.translatable("gui.botwmcs.realmshost.chooseTownScreen.title"), packet.showBackground()));
     }
 }

@@ -11,10 +11,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.tooltip.TooltipComponent;
-
-import java.awt.*;
-import java.util.List;
 
 public class ChooseJobScreen extends Screen {
     private final boolean showBackground;
@@ -110,6 +106,6 @@ public class ChooseJobScreen extends Screen {
         openChooseTownScreen(showBackground);
     }
     private void openChooseTownScreen(boolean showBackground) {
-        Minecraft.getInstance().setScreen(new ChooseTownScreen(Component.translatable("gui.botwmcs.realmshost.chooseTownScreen.title"), this.localPlayer, showBackground));
+        Minecraft.getInstance().setScreen(new ChooseTownScreen(Component.translatable("gui.botwmcs.realmshost.chooseTownScreen.title"), showBackground));
     }
 }

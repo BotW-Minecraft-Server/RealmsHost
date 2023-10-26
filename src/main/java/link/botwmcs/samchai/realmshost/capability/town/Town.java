@@ -89,5 +89,4 @@ public class Town {
     public int getClaimedChunks() {
         return townClaimedChunks.size();
     }
-
 }
