@@ -40,10 +40,12 @@ dependencies {
     // Adds a dependency on a specific module
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.3.0"
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-world:5.3.0"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-level:5.3.0"
     // Includes Cardinal Components API as a Jar-in-Jar dependency (optional)
     include "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.3.0"
     include "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.3.0"
     include "dev.onyxstudios.cardinal-components-api:cardinal-components-world:5.3.0"
+    include "dev.onyxstudios.cardinal-components-api:cardinal-components-level:5.3.0"
     }
 
 processResources {

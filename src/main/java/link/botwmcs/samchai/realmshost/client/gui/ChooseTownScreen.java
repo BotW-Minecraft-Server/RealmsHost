@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.MerchantScreen;
 import net.minecraft.network.chat.CommonComponents;
@@ -78,8 +79,15 @@ public class ChooseTownScreen extends Screen {
         int centeredX = this.width / 2 - 108 / 2;
         int centeredY = this.height / 6;
         // Render scroll background
-        guiGraphics.blit(VILLAGER_TEXTURE, centeredX + 10, centeredY, 0, 180, 0.0F, 107, 256, 512, 256);
-        guiGraphics.blit(VILLAGER_TEXTURE, centeredX, centeredY, 0, 0.0F, 0.0F, 101, 256, 512, 256);
+        if (townList.isEmpty()) {
+            guiGraphics.drawCenteredString(this.font, Component.translatable("gui.botwmcs.realmshost.chooseTownScreen.noTown"), centeredX, centeredY, 0xFFFFFF);
+            final AbstractWidget randomTeleportButton = addRenderableWidget(new ColorButton(this.width / 2 - 50, this.height / 2 - 50, 100, 20, Component.translatable("gui.botwmcs.realmshost.chooseTownScreen.randomTeleport"), 0x00008FE1, (button) -> {
+                // TODO: Random teleport
+            }));
+        } else {
+            guiGraphics.blit(VILLAGER_TEXTURE, centeredX + 10, centeredY, 0, 180, 0.0F, 107, 256, 512, 256);
+            guiGraphics.blit(VILLAGER_TEXTURE, centeredX, centeredY, 0, 0.0F, 0.0F, 101, 256, 512, 256);
+        }
     }
     public void renderTransparentBackground(GuiGraphics guiGraphics) {
         guiGraphics.fillGradient(0, 0, this.width, this.height, -5, 1678774288, -2112876528);

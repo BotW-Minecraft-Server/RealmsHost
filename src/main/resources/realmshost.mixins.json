@@ -8,6 +8,7 @@
   ],
   "client": [
     "ClientCommonPacketListenerImplMixin",
+    "DeathScreenMixin",
     "InventoryScreenMixin"
   ],
   "injectors": {
