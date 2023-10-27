@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import link.botwmcs.samchai.realmshost.RealmsHost;
 import link.botwmcs.samchai.realmshost.capability.town.Town;
 import link.botwmcs.samchai.realmshost.network.c2s.ChooseTownC2SPacket;
+import link.botwmcs.samchai.realmshost.util.TownHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -19,6 +20,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -33,10 +35,10 @@ public class ChooseTownScreen extends Screen {
     private int selectedTown;
     int scrollOff;
 
-    public ChooseTownScreen(Component component, List<Town> townList, boolean showBackground) {
+    public ChooseTownScreen(Component component, boolean showBackground) {
         super(component);
         this.showBackground = showBackground;
-        this.townList = townList;
+        this.townList = new ArrayList<>(TownHandler.getTownList(Minecraft.getInstance().level));
     }
     protected void init() {
         super.init();
