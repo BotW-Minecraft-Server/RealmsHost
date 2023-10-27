@@ -12,7 +12,7 @@ import net.minecraft.world.level.Level;
 
 public class WorldJoinEvent {
     public static void onLoggedIn(Level world, Player player, BlockPos blockPos) {
-        if (world.isClientSide) {
+        if (player.getCommandSenderWorld().isClientSide()) {
             player.sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.inClientMode"));
 
             return;

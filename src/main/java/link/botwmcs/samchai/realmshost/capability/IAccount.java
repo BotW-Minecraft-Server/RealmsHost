@@ -8,6 +8,7 @@ public interface IAccount extends PlayerComponent {
     Integer getPlayerJobXp();
     Boolean isPlayerFirstJoinServer();
 
+
     void setPlayerJob(String playerJob);
     void setPlayerTown(String playerTown);
     void setPlayerJobXp(Integer playerJobXp);

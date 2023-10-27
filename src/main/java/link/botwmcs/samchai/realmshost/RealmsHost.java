@@ -2,6 +2,7 @@ package link.botwmcs.samchai.realmshost;
 
 import com.mojang.logging.LogUtils;
 import link.botwmcs.samchai.realmshost.command.ManageCommand;
+import link.botwmcs.samchai.realmshost.command.ToastCommand;
 import link.botwmcs.samchai.realmshost.command.TownCommand;
 import link.botwmcs.samchai.realmshost.event.player.PlayerEventHandler;
 import link.botwmcs.samchai.realmshost.event.player.WorldJoinEvent;
@@ -33,6 +34,7 @@ public class RealmsHost implements ModInitializer {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             ManageCommand.register(dispatcher);
             TownCommand.register(dispatcher);
+            ToastCommand.register(dispatcher);
         });
     }
     private void loadC2SNetworkPackets() {

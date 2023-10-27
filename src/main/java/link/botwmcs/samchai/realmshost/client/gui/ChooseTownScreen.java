@@ -3,6 +3,7 @@ package link.botwmcs.samchai.realmshost.client.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import link.botwmcs.samchai.realmshost.RealmsHost;
 import link.botwmcs.samchai.realmshost.capability.town.Town;
+import link.botwmcs.samchai.realmshost.client.gui.components.ColorButton;
 import link.botwmcs.samchai.realmshost.network.c2s.ChooseTownC2SPacket;
 import link.botwmcs.samchai.realmshost.util.TownHandler;
 import net.fabricmc.api.EnvType;

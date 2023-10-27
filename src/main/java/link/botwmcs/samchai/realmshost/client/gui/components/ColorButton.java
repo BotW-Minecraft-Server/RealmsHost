@@ -1,4 +1,4 @@
-package link.botwmcs.samchai.realmshost.client.gui;
+package link.botwmcs.samchai.realmshost.client.gui.components;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
