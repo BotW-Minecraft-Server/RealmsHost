@@ -22,6 +22,10 @@ public class C2SHandler {
 
     private static void onChooseJob(ChooseJobC2SPacket packet, ServerPlayer serverPlayer, PacketSender sender) {
         serverPlayer.sendSystemMessage(Component.nullToEmpty("You chose " + packet.jobName() + "!"));
+        if (PlayerUtilities.isPlayerFirstJoinServer(serverPlayer)) {
+            PlayerUtilities.openTownChooseScreen(serverPlayer, true);
+        }
+
         CapabilitiesHandler.setPlayerJob(serverPlayer, packet.jobName());
     }
     private static void onChooseTown(ChooseTownC2SPacket packet, ServerPlayer serverPlayer, PacketSender sender) {

@@ -1,6 +1,7 @@
 package link.botwmcs.samchai.realmshost.client.gui;
 
 import link.botwmcs.samchai.realmshost.network.c2s.ChooseJobC2SPacket;
+import link.botwmcs.samchai.realmshost.util.PlayerUtilities;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -10,12 +11,14 @@ import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 public class ChooseJobScreen extends Screen {
     private final boolean showBackground;
     private final Player localPlayer;
     private final ResourceLocation recipeBookGuiTextures = new ResourceLocation("textures/gui/recipe_book.png");
+    private boolean isFirstJoinServer;
 
     public ChooseJobScreen(Component component, Player player, boolean showBackground) {
         super(component);
@@ -26,6 +29,7 @@ public class ChooseJobScreen extends Screen {
     protected void init() {
         Minecraft minecraft = Minecraft.getInstance();
         super.init();
+        this.isFirstJoinServer = PlayerUtilities.isPlayerFirstJoinServer(localPlayer);
         renderButtons();
     }
     @Override
@@ -80,10 +84,12 @@ public class ChooseJobScreen extends Screen {
     private void renderButtons() {
         int buttonStartX = this.width / 2 - 147 / 2 + 8;
         int buttonStartY = this.height / 2 - 166 / 2 + 8;
-//        // Close button
-//        addRenderableWidget(new ColorButton(10, 10, 20, 20, Component.literal("X"), 0xFFEF9A9A, sender -> {
-//            super.onClose();
-//        }));
+        // Close button
+        if (!isFirstJoinServer) {
+            addRenderableWidget(new ColorButton(10, 10, 20, 20, Component.literal("X"), 0xFFEF9A9A, sender -> {
+                super.onClose();
+            }));
+        }
         // Farmer button
         final AbstractWidget farmerButton = addRenderableWidget(new ColorButton(buttonStartX, buttonStartY, 147 - 16, 20, Component.translatable("gui.botwmcs.realmshost.farmer"), 0xFFFBC23E, sender -> {
             setPlayerJob("farmer");
@@ -102,10 +108,5 @@ public class ChooseJobScreen extends Screen {
     }
     private void setPlayerJob(String playerJob) {
         ClientPlayNetworking.send(new ChooseJobC2SPacket(playerJob));
-        super.onClose();
-        openChooseTownScreen(showBackground);
-    }
-    private void openChooseTownScreen(boolean showBackground) {
-        Minecraft.getInstance().setScreen(new ChooseTownScreen(Component.translatable("gui.botwmcs.realmshost.chooseTownScreen.title"), showBackground));
     }
 }

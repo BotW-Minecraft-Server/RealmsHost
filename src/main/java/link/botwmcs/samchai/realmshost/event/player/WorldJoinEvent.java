@@ -1,7 +1,9 @@
 package link.botwmcs.samchai.realmshost.event.player;
 
 import link.botwmcs.samchai.realmshost.capability.AccountHandler;
+import link.botwmcs.samchai.realmshost.capability.town.TownCompoundHandler;
 import link.botwmcs.samchai.realmshost.util.PlayerUtilities;
+import link.botwmcs.samchai.realmshost.util.TownHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -17,14 +19,10 @@ public class WorldJoinEvent {
         }
         if (AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).isPlayerFirstJoinServer()) {
             player.sendSystemMessage(net.minecraft.network.chat.Component.nullToEmpty("Welcome to LTSX!"));
-            player.sendSystemMessage(Component.nullToEmpty(AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).isPlayerFirstJoinServer().toString()));
             // Open ChooseJobScreen
             PlayerUtilities.openJobChooseScreen((ServerPlayer) player, true);
 
         } else {
-            player.sendSystemMessage(net.minecraft.network.chat.Component.nullToEmpty("Welcome back to LTSX!"));
-            player.sendSystemMessage(Component.nullToEmpty(AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).isPlayerFirstJoinServer().toString()));
-            PlayerUtilities.openJobChooseScreen((ServerPlayer) player, true);
-        }
+            player.sendSystemMessage(net.minecraft.network.chat.Component.nullToEmpty("Welcome back to LTSX!"));}
     }
 }

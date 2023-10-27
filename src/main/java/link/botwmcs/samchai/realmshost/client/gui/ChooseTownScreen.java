@@ -4,8 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import link.botwmcs.samchai.realmshost.RealmsHost;
 import link.botwmcs.samchai.realmshost.capability.town.Town;
 import link.botwmcs.samchai.realmshost.network.c2s.ChooseTownC2SPacket;
-import link.botwmcs.samchai.realmshost.util.PlayerUtilities;
-import link.botwmcs.samchai.realmshost.util.TownHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -14,42 +12,35 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.MerchantScreen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.inventory.MerchantMenu;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
 
 import java.util.Iterator;
 import java.util.List;
 
 public class ChooseTownScreen extends Screen {
     private final boolean showBackground;
+    private final List<Town> townList;
     private final TownButton[] townButtons = new TownButton[7];
     private static final ResourceLocation VILLAGER_TEXTURE = new ResourceLocation("textures/gui/container/villager.png");
     private static final ResourceLocation SCROLLER_SPRITE = new ResourceLocation("container/villager/scroller");
     private static final ResourceLocation SCROLLER_DISABLED_SPRITE = new ResourceLocation("container/villager/scroller_disabled");
     private boolean isDragging;
     private int selectedTown;
-
     int scrollOff;
 
-    List<Town> townList;
-    public ChooseTownScreen(Component component, boolean showBackground) {
+    public ChooseTownScreen(Component component, List<Town> townList, boolean showBackground) {
         super(component);
         this.showBackground = showBackground;
+        this.townList = townList;
     }
     protected void init() {
         super.init();
-        Level level = Minecraft.getInstance().level;
-        // Get all towns
-        // Because used AutoSyncComponent from CCA, it can be used on client side
-        this.townList = TownHandler.getTownList(level);
+
         int centeredX = this.width / 2 - 108 / 2;
         int centeredY = this.height / 6;
         int buttonStartX = centeredX + 5;

@@ -60,7 +60,7 @@ public class TownCommand {
                                                                                                         context.getSource().sendFailure(Component.translatable("chat.botwmcs.realmshost.town.create.fail"));
                                                                                                         return 0;
                                                                                                     }
-                                                                                                    CapabilitiesHandler.createTown(world, townOwner, townName, townComment, isPublic, isOpen, isStared, townLevel, townFunds, townSpawn, townHall, townMarket, townBank, townJobBoard, townYard);
+                                                                                                    TownHandler.createTown(world, townOwner, townName, townComment, isPublic, isOpen, isStared, townLevel, townFunds, townSpawn, townHall, townMarket, townBank, townJobBoard, townYard);
                                                                                                     Town town = context.getSource().getLevel().getComponent(TownCompoundHandler.TOWN_COMPONENT_KEY).getTown(townName);
                                                                                                     context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.check.name", town.townName));
                                                                                                     context.getSource().sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.town.check.comment", town.townComment));

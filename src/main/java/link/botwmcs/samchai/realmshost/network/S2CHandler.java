@@ -4,6 +4,7 @@ import link.botwmcs.samchai.realmshost.client.gui.ChooseJobScreen;
 import link.botwmcs.samchai.realmshost.client.gui.ChooseTownScreen;
 import link.botwmcs.samchai.realmshost.network.s2c.OpenChooseJobScreenS2CPacket;
 import link.botwmcs.samchai.realmshost.network.s2c.OpenChooseTownScreenS2CPacket;
+import link.botwmcs.samchai.realmshost.util.TownHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
@@ -28,6 +29,6 @@ public class S2CHandler {
     }
     @Environment(EnvType.CLIENT)
     private static void openChooseTownScreen(OpenChooseTownScreenS2CPacket packet, Player player, PacketSender sender) {
-        Minecraft.getInstance().setScreen(new ChooseTownScreen(Component.translatable("gui.botwmcs.realmshost.chooseTownScreen.title"), packet.showBackground()));
+        Minecraft.getInstance().setScreen(new ChooseTownScreen(Component.translatable("gui.botwmcs.realmshost.chooseTownScreen.title"), packet.townList(), packet.showBackground()));
     }
 }

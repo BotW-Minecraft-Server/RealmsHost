@@ -1,17 +1,21 @@
 package link.botwmcs.samchai.realmshost.capability.town;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.ChunkPos;
 
 import java.util.*;
 
 public class Town {
-    public List<UUID> residentUUIDs = new ArrayList<>();
-    public List<ChunkPos> townClaimedChunks = new ArrayList<>();
+    public List<UUID> residentUUIDs;
+    public List<ChunkPos> townClaimedChunks;
     public UUID owner;
     public String townName;
     public String townComment;
+    public String townWorldLevel;
     public boolean isPublic;
     public boolean isOpen;
     public boolean isStared;
@@ -24,9 +28,10 @@ public class Town {
     public BlockPos townJobBoard;
     public BlockPos townYard;
 
-    public Town(String townName, String townComment, UUID owner, boolean isPublic, boolean isOpen, boolean isStared, int townLevel, int townFunds, BlockPos townSpawn, BlockPos townHall, BlockPos townMarket, BlockPos townBank, BlockPos townJobBoard, BlockPos townYard) {
+    public Town(String townName, String townComment, String townWorldLevel, UUID owner, boolean isPublic, boolean isOpen, boolean isStared, int townLevel, int townFunds, BlockPos townSpawn, BlockPos townHall, BlockPos townMarket, BlockPos townBank, BlockPos townJobBoard, BlockPos townYard, List<UUID> residentUUIDs, List<ChunkPos> townClaimedChunks) {
         this.townName = townName;
         this.townComment = townComment;
+        this.townWorldLevel = townWorldLevel;
         this.owner = owner;
         this.isPublic = isPublic;
         this.isOpen = isOpen;
@@ -39,6 +44,8 @@ public class Town {
         this.townBank = townBank;
         this.townJobBoard = townJobBoard;
         this.townYard = townYard;
+        this.residentUUIDs = residentUUIDs;
+        this.townClaimedChunks = townClaimedChunks;
     }
 
     public void addResident(ServerPlayer serverPlayer) {
