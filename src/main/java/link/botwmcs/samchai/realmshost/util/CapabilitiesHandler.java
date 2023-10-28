@@ -1,13 +1,14 @@
 package link.botwmcs.samchai.realmshost.util;
 
-import link.botwmcs.samchai.realmshost.RealmsHost;
 import link.botwmcs.samchai.realmshost.capability.AccountHandler;
 import link.botwmcs.samchai.realmshost.capability.DeathCounter;
+import link.botwmcs.samchai.realmshost.capability.Home;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 import java.time.Instant;
+import java.util.List;
 
 public class CapabilitiesHandler {
     public static String getPlayerJob(Player player) {
@@ -45,7 +46,16 @@ public class CapabilitiesHandler {
     }
     public static void addDeathCounter(Player player, Level deathLevel, BlockPos deathPos) {
         long currentTime = Instant.now().toEpochMilli();
-        AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).addDeathCounter(new DeathCounter(deathLevel.dimension(), deathPos, currentTime));
+        List<DeathCounter> counterList = AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getDeathCounterList();
+        counterList.add(new DeathCounter(deathLevel.dimension(), deathPos, currentTime));
+        AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setDeathCounterList(counterList);
+
+//        AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).addDeathCounter(new DeathCounter(deathLevel.dimension(), deathPos, currentTime));
+    }
+    public static void addHome(Player player, Level homeLevel, BlockPos homePos, String homeName) {
+        List<Home> homeList = AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getHomeList();
+        homeList.add(new Home(homeLevel.dimension(), homePos, homeName));
+        AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setHomeList(homeList);
     }
 
 

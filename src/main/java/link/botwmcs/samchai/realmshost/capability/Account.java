@@ -19,6 +19,7 @@ public class Account implements IAccount, AutoSyncedComponent {
     private Integer playerJobXp;
     private boolean playerFirstJoinServer = true;
     private List<DeathCounter> counterList = new ArrayList<>();
+    private List<Home> homeList = new ArrayList<>();
     private final Object provider;
     public Account(Object provider) {
         this.provider = provider;
@@ -54,13 +55,13 @@ public class Account implements IAccount, AutoSyncedComponent {
     }
 
     @Override
-    public DeathCounter getDeathCounter(int index) {
-        return counterList.get(index);
+    public List<DeathCounter> getDeathCounterList() {
+        return counterList;
     }
 
     @Override
-    public List<DeathCounter> getDeathCounterList() {
-        return counterList;
+    public List<Home> getHomeList() {
+        return homeList;
     }
 
     @Override
@@ -89,22 +90,14 @@ public class Account implements IAccount, AutoSyncedComponent {
     }
 
     @Override
-    public void setDeathCounter(DeathCounter deathCounter, int index) {
-        this.counterList.set(index, deathCounter);
-        AccountHandler.ACCOUNT_COMPONENT_KEY.sync(this.provider);
-    }
-
-    @Override
     public void setDeathCounterList(List<DeathCounter> counterList) {
         this.counterList = counterList;
         AccountHandler.ACCOUNT_COMPONENT_KEY.sync(this.provider);
     }
 
     @Override
-    public void addDeathCounter(DeathCounter deathCounter) {
-        this.counterList.add(deathCounter);
-        RealmsHost.LOGGER.info(String.valueOf(this.counterList.size()));
-        RealmsHost.LOGGER.info(String.valueOf(this.counterList.get(0).deathPos));
+    public void setHomeList(List<Home> homeList) {
+        this.homeList = homeList;
         AccountHandler.ACCOUNT_COMPONENT_KEY.sync(this.provider);
     }
 
@@ -133,6 +126,26 @@ public class Account implements IAccount, AutoSyncedComponent {
             }
             counterList.sort((o1, o2) -> (int) (o2.deathTime - o1.deathTime));
         }
+
+        // Home
+        if (tag.contains("home")) {
+            homeList.clear();
+            for (Tag t : tag.getList("home", 10)) {
+                CompoundTag homeTag = (CompoundTag) t;
+                Home home = new Home(
+                        Level.RESOURCE_KEY_CODEC.parse(NbtOps.INSTANCE, homeTag.get("homeLevel")).resultOrPartial(RealmsHost.LOGGER::error).get(),
+                        new BlockPos(
+                                homeTag.getInt("locationPosX"),
+                                homeTag.getInt("locationPosY"),
+                                homeTag.getInt("locationPosZ")
+                        ),
+                        homeTag.getString("homeName")
+                );
+                homeList.add(home);
+            }
+        }
+
+
     }
 
     @Override
@@ -164,11 +177,29 @@ public class Account implements IAccount, AutoSyncedComponent {
             counterTag.putInt("locationPosZ", counter.deathPos.getZ());
             counterTag.putLong("deathTime", counter.deathTime);
             deathCounterTag.add(counterTag);
-            if (deathCounterTag.size() >= 10) {
+            if (deathCounterTag.size() > 10) {
                 deathCounterTag.remove(0);
             }
         }
         tag.put("deathCounter", deathCounterTag);
+
+        // Home
+        ListTag homeTag = new ListTag();
+        for (Home home : homeList) {
+            CompoundTag homeCompoundTag = new CompoundTag();
+            ResourceLocation.CODEC.encodeStart(NbtOps.INSTANCE, home.homeLevel.location()).resultOrPartial(RealmsHost.LOGGER::error).ifPresent((lambda) -> {
+                homeCompoundTag.put("homeLevel", lambda);
+            });
+            homeCompoundTag.putString("homeName", home.homeName);
+            homeCompoundTag.putInt("locationPosX", home.homePos.getX());
+            homeCompoundTag.putInt("locationPosY", home.homePos.getY());
+            homeCompoundTag.putInt("locationPosZ", home.homePos.getZ());
+            homeTag.add(homeCompoundTag);
+            if (homeTag.size() > 10) {
+                homeTag.remove(0);
+            }
+        }
+        tag.put("home", homeTag);
 
     }
 }

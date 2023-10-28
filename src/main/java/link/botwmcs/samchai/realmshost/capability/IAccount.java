@@ -9,15 +9,14 @@ public interface IAccount extends PlayerComponent {
     String getPlayerTown();
     Integer getPlayerJobXp();
     Boolean isPlayerFirstJoinServer();
-    DeathCounter getDeathCounter(int index);
     List<DeathCounter> getDeathCounterList();
+    List<Home> getHomeList();
 
 
     void setPlayerJob(String playerJob);
     void setPlayerTown(String playerTown);
     void setPlayerJobXp(Integer playerJobXp);
     void setPlayerFirstJoinServer(Boolean playerFirstJoinServer);
-    void setDeathCounter(DeathCounter deathCounter, int index);
     void setDeathCounterList(List<DeathCounter> counterList);
-    void addDeathCounter(DeathCounter deathCounter);
+    void setHomeList(List<Home> homeList);
 }
