@@ -20,6 +20,10 @@ repositories {
         name = 'ParchmentMC'
         url = 'https://maven.parchmentmc.org'
     }
+    maven {
+        name = "Fuzs Mod Resources"
+        url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+    }
 }
 
 dependencies {
@@ -46,7 +50,14 @@ dependencies {
     include "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.3.0"
     include "dev.onyxstudios.cardinal-components-api:cardinal-components-world:5.3.0"
     include "dev.onyxstudios.cardinal-components-api:cardinal-components-level:5.3.0"
-    }
+
+    // Forge Config API
+    modApi("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:9.0.0")
+    compileOnly('com.electronwill.night-config:core:3.6.5')
+    compileOnly('com.electronwill.night-config:toml:3.6.5')
+
+
+}
 
 processResources {
     inputs.property "version", project.version

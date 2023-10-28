@@ -1,9 +1,11 @@
 package link.botwmcs.samchai.realmshost;
 
 import com.mojang.logging.LogUtils;
+import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
 import link.botwmcs.samchai.realmshost.command.ManageCommand;
 import link.botwmcs.samchai.realmshost.command.ToastCommand;
 import link.botwmcs.samchai.realmshost.command.TownCommand;
+import link.botwmcs.samchai.realmshost.config.ServerConfig;
 import link.botwmcs.samchai.realmshost.event.player.PlayerDeathEvent;
 import link.botwmcs.samchai.realmshost.event.player.PlayerEventHandler;
 import link.botwmcs.samchai.realmshost.event.player.WorldJoinEvent;
@@ -11,6 +13,7 @@ import link.botwmcs.samchai.realmshost.event.player.WorldLeaveEvent;
 import link.botwmcs.samchai.realmshost.network.C2SHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.minecraftforge.fml.config.ModConfig;
 import org.slf4j.Logger;
 
 public class RealmsHost implements ModInitializer {
@@ -22,6 +25,7 @@ public class RealmsHost implements ModInitializer {
         loadEvents();
         loadCommands();
         loadC2SNetworkPackets();
+        loadConfig();
     }
 
     private void printConsoleOutput() {
@@ -41,5 +45,8 @@ public class RealmsHost implements ModInitializer {
     }
     private void loadC2SNetworkPackets() {
         C2SHandler.register();
+    }
+    private void loadConfig() {
+        ForgeConfigRegistry.INSTANCE.register(RealmsHost.MODID, ModConfig.Type.SERVER, ServerConfig.CONFIG_SPEC);
     }
 }

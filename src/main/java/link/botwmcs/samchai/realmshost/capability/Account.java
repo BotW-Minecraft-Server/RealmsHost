@@ -2,6 +2,7 @@ package link.botwmcs.samchai.realmshost.capability;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import link.botwmcs.samchai.realmshost.RealmsHost;
+import link.botwmcs.samchai.realmshost.config.ServerConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -177,7 +178,7 @@ public class Account implements IAccount, AutoSyncedComponent {
             counterTag.putInt("locationPosZ", counter.deathPos.getZ());
             counterTag.putLong("deathTime", counter.deathTime);
             deathCounterTag.add(counterTag);
-            if (deathCounterTag.size() > 10) {
+            if (deathCounterTag.size() > ServerConfig.CONFIG.savedDeathCounterNumbers.get()) {
                 deathCounterTag.remove(0);
             }
         }
@@ -195,7 +196,7 @@ public class Account implements IAccount, AutoSyncedComponent {
             homeCompoundTag.putInt("locationPosY", home.homePos.getY());
             homeCompoundTag.putInt("locationPosZ", home.homePos.getZ());
             homeTag.add(homeCompoundTag);
-            if (homeTag.size() > 10) {
+            if (homeTag.size() > ServerConfig.CONFIG.canSetHomeNumbers.get()) {
                 homeTag.remove(0);
             }
         }

@@ -1,7 +1,6 @@
 package link.botwmcs.samchai.realmshost.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import link.botwmcs.samchai.realmshost.RealmsHost;
 import link.botwmcs.samchai.realmshost.capability.town.Town;
 import link.botwmcs.samchai.realmshost.client.gui.components.ColorButton;
 import link.botwmcs.samchai.realmshost.network.c2s.ChooseTownC2SPacket;
@@ -54,7 +53,6 @@ public class ChooseTownScreen extends Screen {
                 if (button instanceof TownButton) {
                     this.selectedTown = ((TownButton) button).getIndex() + this.scrollOff;
                     this.postButtonClick();
-                    RealmsHost.LOGGER.info(String.valueOf(this.selectedTown));
                 }
 
             }));

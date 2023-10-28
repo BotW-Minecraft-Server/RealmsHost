@@ -1,6 +1,7 @@
 package link.botwmcs.samchai.realmshost.event.player;
 
 import link.botwmcs.samchai.realmshost.capability.AccountHandler;
+import link.botwmcs.samchai.realmshost.config.ServerConfig;
 import link.botwmcs.samchai.realmshost.util.PlayerUtilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -12,14 +13,14 @@ public class WorldJoinEvent {
     public static void onLoggedIn(Level world, Player player, BlockPos blockPos) {
         if (player.getCommandSenderWorld().isClientSide()) {
             player.sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.inClientMode"));
-
             return;
         }
         if (AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).isPlayerFirstJoinServer()) {
             player.sendSystemMessage(net.minecraft.network.chat.Component.nullToEmpty("Welcome to LTSX!"));
             // Open ChooseJobScreen
-            PlayerUtilities.openJobChooseScreen((ServerPlayer) player, true);
-
+            if (ServerConfig.CONFIG.enableFirstJoinServerOpenMenu.get()) {
+                PlayerUtilities.openJobChooseScreen((ServerPlayer) player, true);
+            }
         } else {
             player.sendSystemMessage(net.minecraft.network.chat.Component.nullToEmpty("Welcome back to LTSX!"));}
     }
