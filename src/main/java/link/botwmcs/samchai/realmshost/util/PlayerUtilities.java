@@ -36,9 +36,6 @@ public class PlayerUtilities {
     public static void sendToast(ServerPlayer player, String title, String subTitle) {
         ServerPlayNetworking.send(player, new SendSystemToastS2CPacket(title, subTitle));
     }
-    public static void addDeathCounter(Player player, Level deathLevel, BlockPos deathPos) {
-        RealmsHost.LOGGER.info("Adding death counter");
-        AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).addDeathCounter(new DeathCounter(deathLevel.dimension(), deathPos, player.deathTime));
-    }
+
 
 }

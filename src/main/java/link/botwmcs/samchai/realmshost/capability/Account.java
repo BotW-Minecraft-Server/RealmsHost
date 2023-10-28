@@ -18,7 +18,7 @@ public class Account implements IAccount, AutoSyncedComponent {
     private String playerTown;
     private Integer playerJobXp;
     private boolean playerFirstJoinServer = true;
-    private List<DeathCounter> counterList;
+    private List<DeathCounter> counterList = new ArrayList<>();
     private final Object provider;
     public Account(Object provider) {
         this.provider = provider;
@@ -60,9 +60,6 @@ public class Account implements IAccount, AutoSyncedComponent {
 
     @Override
     public List<DeathCounter> getDeathCounterList() {
-        if (counterList == null) {
-            return new ArrayList<>();
-        }
         return counterList;
     }
 
@@ -120,11 +117,7 @@ public class Account implements IAccount, AutoSyncedComponent {
 
         // Death counter
         if (tag.contains("deathCounter")) {
-            if (counterList == null) {
-                counterList = new ArrayList<>();
-            } else {
-                counterList.clear();
-            }
+            counterList.clear();
             for (Tag t : tag.getList("deathCounter", 10)) {
                 CompoundTag counterTag = (CompoundTag) t;
                 DeathCounter deathCounter = new DeathCounter(
@@ -160,9 +153,6 @@ public class Account implements IAccount, AutoSyncedComponent {
         tag.putBoolean("playerFirstJoinServer", playerFirstJoinServer);
 
         // Death counter
-        if (counterList == null) {
-            counterList = new ArrayList<>();
-        }
         ListTag deathCounterTag = new ListTag();
         for (DeathCounter counter : counterList) {
             CompoundTag counterTag = new CompoundTag();

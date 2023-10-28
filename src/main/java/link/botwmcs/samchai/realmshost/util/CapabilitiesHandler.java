@@ -1,7 +1,13 @@
 package link.botwmcs.samchai.realmshost.util;
 
+import link.botwmcs.samchai.realmshost.RealmsHost;
 import link.botwmcs.samchai.realmshost.capability.AccountHandler;
+import link.botwmcs.samchai.realmshost.capability.DeathCounter;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+
+import java.time.Instant;
 
 public class CapabilitiesHandler {
     public static String getPlayerJob(Player player) {
@@ -16,7 +22,6 @@ public class CapabilitiesHandler {
     public static Boolean isPlayerFirstJoinServer(Player player) {
         return AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).isPlayerFirstJoinServer();
     }
-
     public static void setPlayerJob(Player player, String playerJob) {
         AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setPlayerJob(playerJob);
     }
@@ -26,7 +31,6 @@ public class CapabilitiesHandler {
     public static void setPlayerJobXp(Player player, Integer playerJobXp) {
         AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setPlayerJobXp(playerJobXp);
     }
-
     public static void setPlayerJobAsFarmer(Player player) {
         AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setPlayerJob("farmer");
     }
@@ -38,6 +42,10 @@ public class CapabilitiesHandler {
     }
     public static void setPlayerJobAsDefault(Player player) {
         AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setPlayerJob("default");
+    }
+    public static void addDeathCounter(Player player, Level deathLevel, BlockPos deathPos) {
+        long currentTime = Instant.now().toEpochMilli();
+        AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).addDeathCounter(new DeathCounter(deathLevel.dimension(), deathPos, currentTime));
     }
 
 
