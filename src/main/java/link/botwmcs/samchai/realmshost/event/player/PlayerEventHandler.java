@@ -29,4 +29,14 @@ public class PlayerEventHandler {
     public interface PlayerLoggedOut {
         void onPlayerLoggedOut(Level world, Player player, BlockPos blockPos);
     }
+
+    public static final Event<PlayerDeath> PLAYER_DEATH_EVENT = EventFactory.createArrayBacked(PlayerDeath.class, callbacks -> (world, player, blockPos) -> {
+        for (PlayerDeath callback : callbacks) {
+            callback.onPlayerDeath(world, player, blockPos);
+        }
+    });
+    @FunctionalInterface
+    public interface PlayerDeath {
+        void onPlayerDeath(Level world, Player player, BlockPos blockPos);
+    }
 }

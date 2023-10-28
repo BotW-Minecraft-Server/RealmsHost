@@ -67,7 +67,7 @@ public abstract class DeathScreenMixin extends Screen {
                 this.minecraft.player.respawn();
                 sender.active = false;
             }));
-            final AbstractWidget respawnChooseButton = addRenderableWidget(new ColorButton(this.width / 2 - 100, this.height / 4 + 96, 200, 20, Component.translatable("gui.botwmcs.realmshost.deathScreen.respawnChoose"), 0x00FFFFFF, sender -> {
+            final AbstractWidget respawnChooseButton = addRenderableWidget(new ColorButton(this.width / 2 - 100, this.height / 4 + 96, 200, 20, Component.translatable("gui.botwmcs.realmshost.deathScreen.respawnChoose"), 0x00008FE1, sender -> {
                 minecraft.setScreen(new ChooseRespawnScreen(Component.translatable("gui.botwmcs.realmshost.deathScreen.respawnChoose"), this.minecraft.player, false));
                 sender.active = false;
             }));

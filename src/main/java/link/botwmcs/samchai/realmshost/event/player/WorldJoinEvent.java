@@ -1,9 +1,7 @@
 package link.botwmcs.samchai.realmshost.event.player;
 
 import link.botwmcs.samchai.realmshost.capability.AccountHandler;
-import link.botwmcs.samchai.realmshost.capability.town.TownCompoundHandler;
 import link.botwmcs.samchai.realmshost.util.PlayerUtilities;
-import link.botwmcs.samchai.realmshost.util.TownHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;

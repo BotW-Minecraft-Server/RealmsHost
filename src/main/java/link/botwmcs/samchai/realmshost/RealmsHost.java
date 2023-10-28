@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import link.botwmcs.samchai.realmshost.command.ManageCommand;
 import link.botwmcs.samchai.realmshost.command.ToastCommand;
 import link.botwmcs.samchai.realmshost.command.TownCommand;
+import link.botwmcs.samchai.realmshost.event.player.PlayerDeathEvent;
 import link.botwmcs.samchai.realmshost.event.player.PlayerEventHandler;
 import link.botwmcs.samchai.realmshost.event.player.WorldJoinEvent;
 import link.botwmcs.samchai.realmshost.event.player.WorldLeaveEvent;
@@ -29,6 +30,7 @@ public class RealmsHost implements ModInitializer {
     private void loadEvents() {
         PlayerEventHandler.PLAYER_LOGGED_OUT_EVENT.register(WorldLeaveEvent::onLoggedOut);
         PlayerEventHandler.PLAYER_LOGGED_IN_EVENT.register(WorldJoinEvent::onLoggedIn);
+        PlayerEventHandler.PLAYER_DEATH_EVENT.register(PlayerDeathEvent::onPlayerDeath);
     }
     private void loadCommands() {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
