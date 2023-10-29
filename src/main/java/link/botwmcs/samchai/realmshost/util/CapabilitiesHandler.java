@@ -29,6 +29,16 @@ public class CapabilitiesHandler {
         return AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getHomeList();
     }
     public static List<Friend> getPlayerFriendList(Player player) {
+        List<Friend> friendList = AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getFriendList();
+        for (Friend friend : friendList) {
+            // TODO: support single-player
+            if (friend.isOnline && player.getServer() == null) {
+                Player friendPlayer = player.getServer().getPlayerList().getPlayer(friend.friendUUID);
+                if (friendPlayer == null) {
+                    friend.isOnline = false;
+                }
+            }
+        }
         return AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getFriendList();
     }
     public static Boolean isPlayerFirstJoinServer(Player player) {
@@ -57,22 +67,27 @@ public class CapabilitiesHandler {
     }
     public static void addDeathCounter(Player player, Level deathLevel, BlockPos deathPos) {
         long currentTime = Instant.now().toEpochMilli();
-        List<DeathCounter> counterList = AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getDeathCounterList();
+        List<DeathCounter> counterList = getPlayerDeathCounterList(player);
         counterList.add(new DeathCounter(deathLevel.dimension(), deathPos, currentTime));
         AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setDeathCounterList(counterList);
     }
     public static void addHome(Player player, Level homeLevel, BlockPos homePos, String homeName) {
-        List<Home> homeList = AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getHomeList();
+        List<Home> homeList = getPlayerHomeList(player);
         homeList.add(new Home(homeLevel.dimension(), homePos, homeName));
         AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setHomeList(homeList);
     }
     public static void removeHome(Player player, String homeName) {
-        List<Home> homeList = AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getHomeList();
+        List<Home> homeList = getPlayerHomeList(player);
         homeList.removeIf(home -> home.homeName.equals(homeName));
         AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setHomeList(homeList);
     }
     public static void addFriend(Player player, Player friendPlayer) {
-        List<Friend> friendList = AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getFriendList();
+        List<Friend> friendList = getPlayerFriendList(player);
         friendList.add(new Friend(friendPlayer.getUUID(), true));
+    }
+    public static void removeFriend(Player player, UUID frendUUID) {
+        List<Friend> friendList = getPlayerFriendList(player);
+        friendList.removeIf(friend -> friend.friendUUID.equals(frendUUID));
+        AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setFriendList(friendList);
     }
 }

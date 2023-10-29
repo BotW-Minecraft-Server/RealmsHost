@@ -41,7 +41,11 @@ public class HomeCommand {
                             for (Home home : homeList) {
                                 homeListString += home.homeName + ", ";
                             }
-                            serverPlayer.sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.home.list", homeListString));
+                            if (!homeListString.isEmpty()) {
+                                serverPlayer.sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.home.list.raw", homeListString));
+                            } else {
+                                serverPlayer.sendSystemMessage(Component.translatable("chat.botwmcs.realmshost.home.list.fail", homeListString));
+                            }
                             return 1;
                         })
                 )
