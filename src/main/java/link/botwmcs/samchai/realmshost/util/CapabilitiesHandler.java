@@ -20,6 +20,12 @@ public class CapabilitiesHandler {
     public static Integer getPlayerJobXp(Player player) {
         return AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getPlayerJobXp();
     }
+    public static List<DeathCounter> getPlayerDeathCounterList(Player player) {
+        return AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getDeathCounterList();
+    }
+    public static List<Home> getPlayerHomeList(Player player) {
+        return AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getHomeList();
+    }
     public static Boolean isPlayerFirstJoinServer(Player player) {
         return AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).isPlayerFirstJoinServer();
     }
@@ -49,14 +55,15 @@ public class CapabilitiesHandler {
         List<DeathCounter> counterList = AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getDeathCounterList();
         counterList.add(new DeathCounter(deathLevel.dimension(), deathPos, currentTime));
         AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setDeathCounterList(counterList);
-
-//        AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).addDeathCounter(new DeathCounter(deathLevel.dimension(), deathPos, currentTime));
     }
     public static void addHome(Player player, Level homeLevel, BlockPos homePos, String homeName) {
         List<Home> homeList = AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getHomeList();
         homeList.add(new Home(homeLevel.dimension(), homePos, homeName));
         AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setHomeList(homeList);
     }
-
-
+    public static void removeHome(Player player, String homeName) {
+        List<Home> homeList = AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getHomeList();
+        homeList.removeIf(home -> home.homeName.equals(homeName));
+        AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setHomeList(homeList);
+    }
 }
