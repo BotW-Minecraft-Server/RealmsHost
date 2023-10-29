@@ -9,6 +9,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class Account implements IAccount, AutoSyncedComponent {
     private boolean playerFirstJoinServer = true;
     private List<DeathCounter> counterList = new ArrayList<>();
     private List<Home> homeList = new ArrayList<>();
+    private List<Friend> friendList = new ArrayList<>();
     private final Object provider;
     public Account(Object provider) {
         this.provider = provider;
@@ -66,6 +68,11 @@ public class Account implements IAccount, AutoSyncedComponent {
     }
 
     @Override
+    public List<Friend> getFriendList() {
+        return friendList;
+    }
+
+    @Override
     public void setPlayerJob(String playerJob) {
         this.playerJob = playerJob;
         AccountHandler.ACCOUNT_COMPONENT_KEY.sync(this.provider);
@@ -99,6 +106,12 @@ public class Account implements IAccount, AutoSyncedComponent {
     @Override
     public void setHomeList(List<Home> homeList) {
         this.homeList = homeList;
+        AccountHandler.ACCOUNT_COMPONENT_KEY.sync(this.provider);
+    }
+
+    @Override
+    public void setFriendList(List<Friend> friendList) {
+        this.friendList = friendList;
         AccountHandler.ACCOUNT_COMPONENT_KEY.sync(this.provider);
     }
 
@@ -143,6 +156,19 @@ public class Account implements IAccount, AutoSyncedComponent {
                         homeTag.getString("homeName")
                 );
                 homeList.add(home);
+            }
+        }
+
+        // Friend
+        if (tag.contains("friend")) {
+            friendList.clear();
+            for (Tag t : tag.getList("friend", 10)) {
+                CompoundTag friendTag = (CompoundTag) t;
+                Friend friend = new Friend(
+                        friendTag.getUUID("friendUUID"),
+                        friendTag.getBoolean("isOnline")
+                );
+                friendList.add(friend);
             }
         }
 
@@ -202,5 +228,14 @@ public class Account implements IAccount, AutoSyncedComponent {
         }
         tag.put("home", homeTag);
 
+        // Friend
+        ListTag friendTag = new ListTag();
+        for (Friend friend : friendList) {
+            CompoundTag friendCompoundTag = new CompoundTag();
+            friendCompoundTag.putUUID("friendUUID", friend.friendUUID);
+            friendCompoundTag.putBoolean("lastLoginTime", friend.isOnline);
+            friendTag.add(friendCompoundTag);
+        }
+        tag.put("friend", friendTag);
     }
 }

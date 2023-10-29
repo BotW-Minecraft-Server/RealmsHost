@@ -11,6 +11,7 @@ public interface IAccount extends PlayerComponent {
     Boolean isPlayerFirstJoinServer();
     List<DeathCounter> getDeathCounterList();
     List<Home> getHomeList();
+    List<Friend> getFriendList();
 
 
     void setPlayerJob(String playerJob);
@@ -19,4 +20,5 @@ public interface IAccount extends PlayerComponent {
     void setPlayerFirstJoinServer(Boolean playerFirstJoinServer);
     void setDeathCounterList(List<DeathCounter> counterList);
     void setHomeList(List<Home> homeList);
+    void setFriendList(List<Friend> friendList);
 }

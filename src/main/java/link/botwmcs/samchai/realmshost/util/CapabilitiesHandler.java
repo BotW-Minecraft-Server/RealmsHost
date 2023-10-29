@@ -2,6 +2,7 @@ package link.botwmcs.samchai.realmshost.util;
 
 import link.botwmcs.samchai.realmshost.capability.AccountHandler;
 import link.botwmcs.samchai.realmshost.capability.DeathCounter;
+import link.botwmcs.samchai.realmshost.capability.Friend;
 import link.botwmcs.samchai.realmshost.capability.Home;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
@@ -9,6 +10,7 @@ import net.minecraft.world.level.Level;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 
 public class CapabilitiesHandler {
     public static String getPlayerJob(Player player) {
@@ -25,6 +27,9 @@ public class CapabilitiesHandler {
     }
     public static List<Home> getPlayerHomeList(Player player) {
         return AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getHomeList();
+    }
+    public static List<Friend> getPlayerFriendList(Player player) {
+        return AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getFriendList();
     }
     public static Boolean isPlayerFirstJoinServer(Player player) {
         return AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).isPlayerFirstJoinServer();
@@ -65,5 +70,9 @@ public class CapabilitiesHandler {
         List<Home> homeList = AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getHomeList();
         homeList.removeIf(home -> home.homeName.equals(homeName));
         AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).setHomeList(homeList);
+    }
+    public static void addFriend(Player player, Player friendPlayer) {
+        List<Friend> friendList = AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getFriendList();
+        friendList.add(new Friend(friendPlayer.getUUID(), true));
     }
 }
