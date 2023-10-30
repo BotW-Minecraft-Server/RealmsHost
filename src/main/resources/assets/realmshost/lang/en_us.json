@@ -54,5 +54,13 @@
     "gui.botwmcs.realmshost.defaultTown.tooltip": "The default town is the town that all new players will join.",
     "gui.botwmcs.realmshost.deathScreen.respawnNearBy": "Respawn Near By",
     "gui.botwmcs.realmshost.deathScreen.respawnChoose": "Choose Respawn Place",
-    "gui.botwmcs.realmshost.deathScreen.deathPos": "Death Position On: §e%s, %s, %s"
+    "gui.botwmcs.realmshost.deathScreen.deathPos": "Death Position On: §e%s, %s, %s",
+    "gui.botwmcs.realmshost.respawnScreen.home": "Home",
+    "gui.botwmcs.realmshost.respawnScreen.deathPlace": "Death Place",
+    "gui.botwmcs.realmshost.respawnScreen.home.homePos": "§eHome Pos: §r%s",
+    "gui.botwmcs.realmshost.respawnScreen.home.homeLevel": "§eHome Level: §r%s",
+    "gui.botwmcs.realmshost.respawnScreen.home.homeName": "§eHome: §r%s",
+    "gui.botwmcs.realmshost.respawnScreen.deathPlace.deathPos": "§eDeath Pos: §r%s",
+    "gui.botwmcs.realmshost.respawnScreen.deathPlace.deathLevel": "§eDeath Level: §r%s",
+    "gui.botwmcs.realmshost.respawnScreen.deathPlace.deathTime": "§eDeath Time: §r%s"
 }

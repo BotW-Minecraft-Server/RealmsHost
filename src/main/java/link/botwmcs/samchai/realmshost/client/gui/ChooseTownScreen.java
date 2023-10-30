@@ -92,7 +92,7 @@ public class ChooseTownScreen extends Screen {
         guiGraphics.drawCenteredString(font, Component.translatable("gui.botwmcs.realmshost.chooseTownScreen.title"), centeredX, centeredY - 100, 0xFFFFFF);
     }
     private void postButtonClick() {
-        List<Town> townList1 = this.townList;
+        List<Town> townList1 = new ArrayList<>(this.townList);
         townList1.sort((town1, town2) -> {
             if (town1.isStared && !town2.isStared) {
                 return -1;
@@ -160,7 +160,7 @@ public class ChooseTownScreen extends Screen {
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
         super.render(guiGraphics, mouseX, mouseY, delta);
         this.renderTitles(guiGraphics, mouseX, mouseY);
-        List<Town> townList1 = this.townList;
+        List<Town> townList1 = new ArrayList<>(this.townList);
         townList1.sort((town1, town2) -> {
             if (town1.isStared && !town2.isStared) {
                 return -1;

@@ -3,12 +3,15 @@ package link.botwmcs.samchai.realmshost.util;
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
 import net.minecraft.ReportedException;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringUtil;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BaseCommandBlock;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
@@ -17,7 +20,10 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
+import java.util.TimeZone;
 
 public class ServerUtilities {
     public static void saveAll(MinecraftServer server) {
@@ -98,6 +104,26 @@ public class ServerUtilities {
     }
     public static String runCommandBlock(ServerLevel serverLevel, String command) {
         return runCommandBlock(serverLevel, null, command);
+    }
+
+    public static String convertTimestampToReadableTime(long timestamp, String timeFormat) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(timeFormat); // EX: MM:dd:HH:mm:ss
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date date = new Date(timestamp);
+        return simpleDateFormat.format(date);
+    }
+
+    public static boolean respawnPlayer(Level world, Player player, BlockPos pos) {
+        if (!(player instanceof ServerPlayer)) {
+            return false;
+        }
+
+        MinecraftServer server = world.getServer();
+        ServerPlayer serverplayer = (ServerPlayer)player;
+        serverplayer.setRespawnPosition(world.dimension(), pos, 0.0F, true, false);
+        serverplayer.respawn();
+        serverplayer.teleportTo(server.getLevel(world.dimension()), pos.getX(), pos.getY(), pos.getZ(), 0.0F, 0.0F);
+        return true;
     }
 
 }
