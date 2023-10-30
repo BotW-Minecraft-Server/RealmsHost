@@ -186,7 +186,7 @@ public class ChooseRespawnScreen extends Screen {
     public boolean mouseClicked(double mouseX, double mouseY, int buttonIndex) {
         this.isDragging = false;
         int i = this.width / 2 - 108 / 2 + 100;
-        int j = this.height / 6 + 18;
+        int j = this.height / 6;
         if (this.canScroll(this.homeList.size() + this.deathCounterList.size()) && mouseX > (double)(i + 94) && mouseX < (double)(i + 94 + 6) && mouseY > (double)(j + 18) && mouseY <= (double)(j + 18 + 139 + 1)) {
             this.isDragging = true;
         }
