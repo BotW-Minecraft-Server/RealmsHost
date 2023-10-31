@@ -10,7 +10,11 @@
   "client": [
     "ClientCommonPacketListenerImplMixin",
     "DeathScreenMixin",
-    "InventoryScreenMixin"
+    "InventoryScreenMixin",
+    "impl.rei.ConfigButtonWidgetMixin",
+    "impl.rei.ConfigManagerImplMixin",
+    "impl.rei.FavoritesListWidgetMixin",
+    "impl.rei.PaginatedEntryListWidgetMixin"
   ],
   "injectors": {
     "defaultRequire": 1

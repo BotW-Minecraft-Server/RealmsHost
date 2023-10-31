@@ -62,5 +62,6 @@
     "gui.botwmcs.realmshost.respawnScreen.home.homeName": "§eHome: §r%s",
     "gui.botwmcs.realmshost.respawnScreen.deathPlace.deathPos": "§eDeath Pos: §r%s",
     "gui.botwmcs.realmshost.respawnScreen.deathPlace.deathLevel": "§eDeath Level: §r%s",
-    "gui.botwmcs.realmshost.respawnScreen.deathPlace.deathTime": "§eDeath Time: §r%s"
+    "gui.botwmcs.realmshost.respawnScreen.deathPlace.deathTime": "§eDeath Time: §r%s",
+    "gui.botwmcs.realmshost.impl.jei.openCreatePonder": "Open Create Ponder"
 }
