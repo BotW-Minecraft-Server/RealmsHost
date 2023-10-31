@@ -63,5 +63,6 @@
     "gui.botwmcs.realmshost.respawnScreen.deathPlace.deathPos": "§eDeath Pos: §r%s",
     "gui.botwmcs.realmshost.respawnScreen.deathPlace.deathLevel": "§eDeath Level: §r%s",
     "gui.botwmcs.realmshost.respawnScreen.deathPlace.deathTime": "§eDeath Time: §r%s",
-    "gui.botwmcs.realmshost.impl.jei.openCreatePonder": "Open Create Ponder"
+    "gui.botwmcs.realmshost.impl.jei.openCreatePonder": "Open Create Ponder",
+    "gui.botwmcs.realmshost.impl.jei.doNotReportIssueForREI": "This REI Duplicate is for LTSX. Don't report any bugs or issues for REI official."
 }

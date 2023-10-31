@@ -2,6 +2,8 @@ package link.botwmcs.samchai.realmshost.mixin.impl.rei;
 
 import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
+import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import me.shedaniel.clothconfig2.gui.entries.TextListEntry;
 import me.shedaniel.rei.api.client.REIRuntime;
 import me.shedaniel.rei.api.client.config.addon.ConfigAddonRegistry;
 import me.shedaniel.rei.api.client.overlay.ScreenOverlay;
@@ -13,6 +15,7 @@ import me.shedaniel.rei.impl.client.config.entries.ConfigAddonsEntry;
 import me.shedaniel.rei.impl.client.config.entries.ReloadPluginsEntry;
 import me.shedaniel.rei.impl.client.gui.ScreenOverlayImpl;
 import me.shedaniel.rei.impl.client.gui.performance.entry.PerformanceEntry;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -84,7 +87,9 @@ public abstract class ConfigManagerImplMixin {
                 builder.getOrCreateCategory(Component.translatable("config.roughlyenoughitems.basics")).getEntries().add(0, new EmptyEntry(4));
                 builder.getOrCreateCategory(Component.translatable("config.roughlyenoughitems.basics")).getEntries().add(0, new ConfigAddonsEntry(220));
             }
+            TextListEntry reportForLtsx = ConfigEntryBuilder.create().startTextDescription(Component.translatable("gui.botwmcs.realmshost.impl.jei.doNotReportIssueForREI").withStyle(ChatFormatting.WHITE)).build();
             builder.getOrCreateCategory(Component.translatable("config.roughlyenoughitems.basics")).getEntries().add(0, new EmptyEntry(4));
+            builder.getOrCreateCategory(Component.translatable("config.roughlyenoughitems.basics")).getEntries().add(0, reportForLtsx);
             builder.getOrCreateCategory(Component.translatable("config.roughlyenoughitems.basics")).getEntries().add(0, new EmptyEntry(4));
 
             return builder.setAfterInitConsumer(screen -> {
