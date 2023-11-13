@@ -115,9 +115,9 @@ public class ChooseTownScreen extends Screen {
             if (this.scrollOff == i - 1) {
                 m = 113;
             }
-            guiGraphics.blitSprite(SCROLLER_SPRITE, posX + 94, posY + 18 + m, 0, 6, 27);
+            guiGraphics.blit(VILLAGER_TEXTURE, posX + 94, posY + 18 + m, 0, 0.0F, 199.0F, 6, 27, 512, 256);
         } else {
-            guiGraphics.blitSprite(SCROLLER_DISABLED_SPRITE, posX + 94, posY + 18, 0, 6, 27);
+            guiGraphics.blit(VILLAGER_TEXTURE, posX + 94, posY + 18, 0, 0.0F, 199.0F, 6, 27, 512, 256);
         }
     }
     private boolean canScroll(int numOffers) {

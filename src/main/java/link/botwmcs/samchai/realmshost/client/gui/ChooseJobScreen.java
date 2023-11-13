@@ -32,7 +32,7 @@ public class ChooseJobScreen extends Screen {
         this.isFirstJoinServer = PlayerUtilities.isPlayerFirstJoinServer(localPlayer);
         renderButtons();
     }
-    @Override
+
     public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float f) {
         if (this.showBackground) {
             this.renderDirtBackground(guiGraphics);
@@ -42,7 +42,7 @@ public class ChooseJobScreen extends Screen {
         // Render GUI graphics components
         renderComponents(guiGraphics, mouseX, mouseY, f);
     }
-    @Override
+
     public void renderTransparentBackground(GuiGraphics guiGraphics) {
         guiGraphics.fillGradient(0, 0, this.width, this.height, -5, 1678774288, -2112876528);
     }
@@ -50,19 +50,23 @@ public class ChooseJobScreen extends Screen {
     public void renderDirtBackground(GuiGraphics guiGraphics) {
         this.renderBackgroundInBlock(guiGraphics, new ResourceLocation("textures/block/dirt.png"));
     }
+
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float f) {
         this.renderBackground(guiGraphics, mouseX, mouseY, f);
         super.render(guiGraphics, mouseX, mouseY, f);
     }
+
     @Override
     public void tick() {
         super.tick();
     }
+
     @Override
     public void removed() {
         super.removed();
     }
+
     @Override
     public void onClose() {
     }
@@ -72,6 +76,7 @@ public class ChooseJobScreen extends Screen {
         guiGraphics.blit(resourceLocation, 0, 0, 0, 0.0F, 0.0F, this.width, this.height, 32, 32);
         guiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
     }
+
     private void renderComponents(GuiGraphics guiGraphics, int mouseX, int mouseY, float f) {
         Font font = Minecraft.getInstance().font;
         int centeredX = this.width / 2;
@@ -79,8 +84,8 @@ public class ChooseJobScreen extends Screen {
         guiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
         guiGraphics.drawCenteredString(font, Component.translatable("gui.botwmcs.realmshost.chooseJobScreen.title"), centeredX, centeredY - 100, 0xFFFFFF);
         guiGraphics.blit(recipeBookGuiTextures, centeredX - 147 / 2, centeredY - 166 / 2, 1, 1, 147, 166);
-
     }
+
     private void renderButtons() {
         int buttonStartX = this.width / 2 - 147 / 2 + 8;
         int buttonStartY = this.height / 2 - 166 / 2 + 8;
@@ -106,6 +111,7 @@ public class ChooseJobScreen extends Screen {
         }));
         knightButton.setTooltip(Tooltip.create(Component.translatable("gui.botwmcs.realmshost.knight.tooltip")));
     }
+
     private void setPlayerJob(String playerJob) {
         ClientPlayNetworking.send(new ChooseJobC2SPacket(playerJob));
     }

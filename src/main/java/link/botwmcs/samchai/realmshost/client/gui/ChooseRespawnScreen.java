@@ -24,8 +24,6 @@ import java.util.*;
 
 public class ChooseRespawnScreen extends Screen {
     private static final ResourceLocation VILLAGER_TEXTURE = new ResourceLocation("textures/gui/container/villager.png");
-    private static final ResourceLocation SCROLLER_SPRITE = new ResourceLocation("container/villager/scroller");
-    private static final ResourceLocation SCROLLER_DISABLED_SPRITE = new ResourceLocation("container/villager/scroller_disabled");
     private final boolean showBackground;
     private final Player player;
     private final List<Home> homeList;
@@ -116,7 +114,6 @@ public class ChooseRespawnScreen extends Screen {
                         k += 20;
                         m++;
                     } else if (item instanceof DeathCounter) {
-//                        DeathCounter deathCounter = (DeathCounter) item;
                         component = Component.translatable("gui.botwmcs.realmshost.respawnScreen.deathPlace");
                         ItemStack deathCounterItemIcon = new ItemStack(Items.BONE, 1);
                         guiGraphics.pose().pushPose();
@@ -153,9 +150,9 @@ public class ChooseRespawnScreen extends Screen {
             if (this.scrollOff == i - 1) {
                 m = 113;
             }
-            guiGraphics.blitSprite(SCROLLER_SPRITE, posX + 94, posY + 18 + m, 0, 6, 27);
+            guiGraphics.blit(VILLAGER_TEXTURE, posX + 94, posY + 18 + m, 0, 0.0F, 199.0F, 6, 27, 512, 256);
         } else {
-            guiGraphics.blitSprite(SCROLLER_DISABLED_SPRITE, posX + 94, posY + 18, 0, 6, 27);
+            guiGraphics.blit(VILLAGER_TEXTURE, posX + 94, posY + 18, 0, 6.0F, 199.0F, 6, 27, 512, 256);
         }
     }
     private boolean canScroll(int numOffers) {

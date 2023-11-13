@@ -8,9 +8,9 @@
     "ServerPlayerMixin"
   ],
   "client": [
-    "ClientCommonPacketListenerImplMixin",
     "DeathScreenMixin",
     "InventoryScreenMixin",
+    "LocalPlayerMixin",
     "impl.rei.ConfigButtonWidgetMixin",
     "impl.rei.ConfigManagerImplMixin",
     "impl.rei.FavoritesListWidgetMixin",
