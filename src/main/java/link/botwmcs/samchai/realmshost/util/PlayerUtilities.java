@@ -4,8 +4,10 @@ import link.botwmcs.samchai.realmshost.RealmsHost;
 import link.botwmcs.samchai.realmshost.capability.Account;
 import link.botwmcs.samchai.realmshost.capability.AccountHandler;
 import link.botwmcs.samchai.realmshost.capability.DeathCounter;
+import link.botwmcs.samchai.realmshost.capability.PlayerInfo;
 import link.botwmcs.samchai.realmshost.network.s2c.OpenChooseJobScreenS2CPacket;
 import link.botwmcs.samchai.realmshost.network.s2c.OpenChooseTownScreenS2CPacket;
+import link.botwmcs.samchai.realmshost.network.s2c.OpenPlayerInfoScreenS2CPacket;
 import link.botwmcs.samchai.realmshost.network.s2c.SendSystemToastS2CPacket;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.BlockPos;
@@ -27,6 +29,21 @@ public class PlayerUtilities {
 
     public static void openTownChooseScreen(ServerPlayer player, boolean showBackground) {
         ServerPlayNetworking.send(player, new OpenChooseTownScreenS2CPacket(TownHandler.getTownList(player.level()), showBackground));
+    }
+
+    public static void openPlayerInfoScreen(ServerPlayer player, ServerPlayer target, boolean showBackground) {
+        PlayerInfo playerInfo = new PlayerInfo(
+                target.getName().getString(),
+                target.experienceLevel,
+                CapabilitiesHandler.getPlayerJob(target),
+                CapabilitiesHandler.getPlayerJobXp(target),
+                CapabilitiesHandler.getPlayerTown(target),
+                CapabilitiesHandler.getPlayerFriendListByUUID(target),
+                // TODO: add player money counter and player online timer
+                0,
+                0
+        );
+        ServerPlayNetworking.send(player, new OpenPlayerInfoScreenS2CPacket(playerInfo, showBackground));
     }
 
     public static ChunkPos getPlayerChunkPos(Player player) {

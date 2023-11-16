@@ -1,5 +1,6 @@
 package link.botwmcs.samchai.realmshost.mixin;
 
+import link.botwmcs.samchai.realmshost.config.ServerConfig;
 import net.minecraft.client.player.LocalPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,6 +12,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class LocalPlayerMixin {
     @Inject(method = "getServerBrand", at = @At("HEAD"), cancellable = true)
     protected void modifyServerBrand(CallbackInfoReturnable<String> cir) {
-        cir.setReturnValue("LTSX RHX Hooker <- FabricImpl");
+        if (ServerConfig.CONFIG.enableLtsxFeature.get()) {
+            cir.setReturnValue("LTSX RHX Hooker -> " + cir.getReturnValue());
+        } else {
+            cir.setReturnValue(cir.getReturnValue());
+        }
     }
 }

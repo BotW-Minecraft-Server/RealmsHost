@@ -9,6 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,6 +41,14 @@ public class CapabilitiesHandler {
             }
         }
         return AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).getFriendList();
+    }
+    public static List<UUID> getPlayerFriendListByUUID(Player player) {
+        List<Friend> friendList = getPlayerFriendList(player);
+        List<UUID> friendListUUID = new ArrayList<>();
+        for (Friend friend : friendList) {
+            friendListUUID.add(friend.friendUUID);
+        }
+        return friendListUUID;
     }
     public static Boolean isPlayerFirstJoinServer(Player player) {
         return AccountHandler.ACCOUNT_COMPONENT_KEY.get(player).isPlayerFirstJoinServer();

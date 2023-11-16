@@ -2,8 +2,10 @@ package link.botwmcs.samchai.realmshost.network;
 
 import link.botwmcs.samchai.realmshost.client.gui.ChooseJobScreen;
 import link.botwmcs.samchai.realmshost.client.gui.ChooseTownScreen;
+import link.botwmcs.samchai.realmshost.client.gui.PlayerInfoScreen;
 import link.botwmcs.samchai.realmshost.network.s2c.OpenChooseJobScreenS2CPacket;
 import link.botwmcs.samchai.realmshost.network.s2c.OpenChooseTownScreenS2CPacket;
+import link.botwmcs.samchai.realmshost.network.s2c.OpenPlayerInfoScreenS2CPacket;
 import link.botwmcs.samchai.realmshost.network.s2c.SendSystemToastS2CPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -22,6 +24,7 @@ public class S2CHandler {
             ClientPlayNetworking.registerReceiver(OpenChooseJobScreenS2CPacket.TYPE, S2CHandler::openChooseJobScreen);
             ClientPlayNetworking.registerReceiver(OpenChooseTownScreenS2CPacket.TYPE, S2CHandler::openChooseTownScreen);
             ClientPlayNetworking.registerReceiver(SendSystemToastS2CPacket.TYPE, S2CHandler::sendSystemToast);
+            ClientPlayNetworking.registerReceiver(OpenPlayerInfoScreenS2CPacket.TYPE, S2CHandler::openPlayerInfoScreen);
         });
     }
 
@@ -37,5 +40,9 @@ public class S2CHandler {
     private static void sendSystemToast(SendSystemToastS2CPacket packet, Player player, PacketSender sender) {
         SystemToast toast = new SystemToast(SystemToast.SystemToastIds.TUTORIAL_HINT, Component.nullToEmpty(packet.title()), Component.nullToEmpty(packet.title()));
         Minecraft.getInstance().getToasts().addToast(toast);
+    }
+    @Environment(EnvType.CLIENT)
+    private static void openPlayerInfoScreen(OpenPlayerInfoScreenS2CPacket packet, Player player, PacketSender sender) {
+        Minecraft.getInstance().setScreen(new PlayerInfoScreen(Component.translatable("gui.botwmcs.realmshost.playerInfoScreen.title"), packet.playerInfo(), packet.showBackground()));
     }
 }

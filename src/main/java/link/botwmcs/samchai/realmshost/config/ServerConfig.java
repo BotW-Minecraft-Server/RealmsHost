@@ -42,6 +42,7 @@ public class ServerConfig {
                 .define("enableRespawnFeature", false);
         enableLtsxFeature = builder
                 .comment("If true, the LTSX server feature will be able (SET TO FALSE WHEN THIRD PARTY USE).")
+                .comment("eg: MinecraftServer.class feature")
                 .define("enableLtsxFeature", false);
         builder.pop();
         builder.push("player");
