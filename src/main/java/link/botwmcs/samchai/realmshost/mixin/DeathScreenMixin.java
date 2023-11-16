@@ -46,7 +46,7 @@ public abstract class DeathScreenMixin extends Screen {
      */
     @Overwrite
     public void init() {
-        if (this.minecraft.isLocalServer()) {
+        if (this.minecraft.isLocalServer() || !ServerConfig.CONFIG.enableRespawnFeature.get()) {
             this.delayTicker = 0;
             this.exitButtons.clear();
             Component component = this.hardcore ? Component.translatable("deathScreen.spectate") : Component.translatable("deathScreen.respawn");
@@ -74,9 +74,7 @@ public abstract class DeathScreenMixin extends Screen {
                 sender.active = false;
             }));
             this.exitButtons.add((Button)respawnNearByButton);
-            if (ServerConfig.CONFIG.enableRespawnFeature.get()) {
-                this.exitButtons.add((Button)respawnChooseButton);
-            }
+            this.exitButtons.add((Button)respawnChooseButton);
             this.setButtonsActive(false);
             this.deathScore = Component.translatable("gui.botwmcs.realmshost.deathScreen.deathPos", this.minecraft.player.getBlockX(), this.minecraft.player.getBlockY(), this.minecraft.player.getBlockZ());
         }

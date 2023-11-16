@@ -14,8 +14,6 @@ public class LocalPlayerMixin {
     protected void modifyServerBrand(CallbackInfoReturnable<String> cir) {
         if (ServerConfig.CONFIG.enableLtsxFeature.get()) {
             cir.setReturnValue("LTSX RHX Hooker -> " + cir.getReturnValue());
-        } else {
-            cir.setReturnValue(cir.getReturnValue());
         }
     }
 }

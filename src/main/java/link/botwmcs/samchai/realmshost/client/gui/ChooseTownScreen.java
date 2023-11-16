@@ -28,7 +28,7 @@ public class ChooseTownScreen extends Screen {
     private final boolean showBackground;
     private final List<Town> townList;
     private final TownButton[] townButtons = new TownButton[7];
-    private static final ResourceLocation VILLAGER_TEXTURE = new ResourceLocation("textures/gui/container/villager.png");
+    private static final ResourceLocation VILLAGER_TEXTURE = new ResourceLocation("textures/gui/container/villager2.png");
     private boolean isDragging;
     private int selectedTown;
     int scrollOff;

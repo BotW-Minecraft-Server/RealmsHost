@@ -23,7 +23,7 @@ import net.minecraft.world.item.Items;
 import java.util.*;
 
 public class ChooseRespawnScreen extends Screen {
-    private static final ResourceLocation VILLAGER_TEXTURE = new ResourceLocation("textures/gui/container/villager.png");
+    private static final ResourceLocation VILLAGER_TEXTURE = new ResourceLocation("textures/gui/container/villager2.png");
     private final boolean showBackground;
     private final Player player;
     private final List<Home> homeList;
