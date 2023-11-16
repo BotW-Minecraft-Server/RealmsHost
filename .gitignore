@@ -29,3 +29,4 @@ run/
 build/
 out/
 
+.DS_Store
