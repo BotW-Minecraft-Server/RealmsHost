@@ -8,6 +8,11 @@ public class ServerConfig {
     public static final ServerConfig CONFIG;
 
     public final ForgeConfigSpec.BooleanValue enableFirstJoinServerOpenMenu;
+    public final ForgeConfigSpec.BooleanValue enableFriendFeature;
+    public final ForgeConfigSpec.BooleanValue enableTownFeature;
+    public final ForgeConfigSpec.BooleanValue enableHomeFeature;
+    public final ForgeConfigSpec.BooleanValue enableRespawnFeature;
+    public final ForgeConfigSpec.BooleanValue enableLtsxFeature;
     public final ForgeConfigSpec.IntValue canSetHomeNumbers;
     public final ForgeConfigSpec.IntValue savedDeathCounterNumbers;
 
@@ -22,7 +27,24 @@ public class ServerConfig {
         builder.push("gerenal");
         enableFirstJoinServerOpenMenu = builder
                 .comment("If true, players will be able to open the server open menu when they join the server for the first time.")
-                .define("enableFirstJoinServerOpenMenu", true);
+                .define("enableFirstJoinServerOpenMenu", false);
+        enableFriendFeature = builder
+                .comment("If true, players will be able to use the friend feature.")
+                .define("enableFriendFeature", false);
+        enableTownFeature = builder
+                .comment("If true, players will be able to use the town feature.")
+                .define("enableTownFeature", false);
+        enableHomeFeature = builder
+                .comment("If true, players will be able to use the home feature.")
+                .define("enableHomeFeature", false);
+        enableRespawnFeature = builder
+                .comment("If true, players will be able to use the respawn feature.")
+                .define("enableRespawnFeature", false);
+        enableLtsxFeature = builder
+                .comment("If true, the LTSX server feature will be able (SET TO FALSE WHEN THIRD PARTY USE).")
+                .define("enableLtsxFeature", false);
+        builder.pop();
+        builder.push("player");
         canSetHomeNumbers = builder
                 .comment("The number of homes that players can set.")
                 .defineInRange("canSetHomeNumbers", 5, 0, 100);

@@ -60,9 +60,10 @@ dependencies {
     include "dev.onyxstudios.cardinal-components-api:cardinal-components-level:${project.cca_version}"
 
     // Forge Config API
-    modApi("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forge_config_version}")
+    modImplementation "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forge_config_version}"
     compileOnly('com.electronwill.night-config:core:3.6.5')
     compileOnly('com.electronwill.night-config:toml:3.6.5')
+    include "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forge_config_version}"
 
     // REI
     modApi "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"

@@ -2,6 +2,7 @@ package link.botwmcs.samchai.realmshost.mixin;
 
 import link.botwmcs.samchai.realmshost.client.gui.ChooseRespawnScreen;
 import link.botwmcs.samchai.realmshost.client.gui.components.ColorButton;
+import link.botwmcs.samchai.realmshost.config.ServerConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
@@ -67,12 +68,15 @@ public abstract class DeathScreenMixin extends Screen {
                 this.minecraft.player.respawn();
                 sender.active = false;
             }));
+
             final AbstractWidget respawnChooseButton = addRenderableWidget(new ColorButton(this.width / 2 - 100, this.height / 4 + 96, 200, 20, Component.translatable("gui.botwmcs.realmshost.deathScreen.respawnChoose"), 0x00008FE1, sender -> {
                 minecraft.setScreen(new ChooseRespawnScreen(Component.translatable("gui.botwmcs.realmshost.deathScreen.respawnChoose"), this.minecraft.player, false));
                 sender.active = false;
             }));
             this.exitButtons.add((Button)respawnNearByButton);
-            this.exitButtons.add((Button)respawnChooseButton);
+            if (ServerConfig.CONFIG.enableRespawnFeature.get()) {
+                this.exitButtons.add((Button)respawnChooseButton);
+            }
             this.setButtonsActive(false);
             this.deathScore = Component.translatable("gui.botwmcs.realmshost.deathScreen.deathPos", this.minecraft.player.getBlockX(), this.minecraft.player.getBlockY(), this.minecraft.player.getBlockZ());
         }

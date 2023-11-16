@@ -15,6 +15,8 @@ import me.shedaniel.rei.impl.client.config.entries.ConfigAddonsEntry;
 import me.shedaniel.rei.impl.client.config.entries.ReloadPluginsEntry;
 import me.shedaniel.rei.impl.client.gui.ScreenOverlayImpl;
 import me.shedaniel.rei.impl.client.gui.performance.entry.PerformanceEntry;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -22,6 +24,7 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import org.jetbrains.annotations.ApiStatus;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,7 +35,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Function;
-
+@ApiStatus.Internal
+@Environment(EnvType.CLIENT)
 @Mixin(value = ConfigManagerImpl.class, remap = false)
 public abstract class ConfigManagerImplMixin {
     @Shadow public abstract void saveConfig();

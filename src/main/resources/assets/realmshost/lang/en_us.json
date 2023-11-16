@@ -44,6 +44,7 @@
     "gui.botwmcs.realmshost.chooseTownScreen.title": "Choose your Town",
     "gui.botwmcs.realmshost.chooseTownScreen.randomTeleport": "Random Teleport",
     "gui.botwmcs.realmshost.chooseTownScreen.noTown": "No town found. Please use Random Teleport button below.",
+    "gui.botwmcs.realmshost.playerInfoScreen.title": "Player",
     "gui.botwmcs.realmshost.farmer": "Farmer",
     "gui.botwmcs.realmshost.farmer.tooltip": "Farmers are the backbone of the economy. They are able to grow crops and breed animals.",
     "gui.botwmcs.realmshost.miner": "Miner",

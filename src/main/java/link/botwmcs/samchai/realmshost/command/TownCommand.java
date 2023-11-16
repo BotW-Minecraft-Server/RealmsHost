@@ -6,6 +6,7 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import link.botwmcs.samchai.realmshost.capability.town.Town;
 import link.botwmcs.samchai.realmshost.capability.town.TownCompoundHandler;
+import link.botwmcs.samchai.realmshost.config.ServerConfig;
 import link.botwmcs.samchai.realmshost.util.CapabilitiesHandler;
 import link.botwmcs.samchai.realmshost.util.ServerUtilities;
 import link.botwmcs.samchai.realmshost.util.TownHandler;
@@ -26,6 +27,7 @@ public class TownCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("town")
                 .requires(commandSourceStack -> commandSourceStack.hasPermission(4))
+                .requires(commandSourceStack -> ServerConfig.CONFIG.enableTownFeature.get())
                 .then(Commands.literal("create")
                         .then(Commands.argument("townName", StringArgumentType.string())
                                 .then(Commands.argument("townComment", StringArgumentType.string())

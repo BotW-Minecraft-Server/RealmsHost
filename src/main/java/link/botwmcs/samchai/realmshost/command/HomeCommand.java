@@ -3,6 +3,7 @@ package link.botwmcs.samchai.realmshost.command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import link.botwmcs.samchai.realmshost.capability.Home;
+import link.botwmcs.samchai.realmshost.config.ServerConfig;
 import link.botwmcs.samchai.realmshost.util.CapabilitiesHandler;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -18,6 +19,7 @@ public class HomeCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("home")
                 .requires(CommandSourceStack::isPlayer)
+                .requires(commandSourceStack -> ServerConfig.CONFIG.enableHomeFeature.get())
                 .then(Commands.literal("set")
                         .then(Commands.argument("name", StringArgumentType.string())
                                 .then(Commands.argument("pos", BlockPosArgument.blockPos())

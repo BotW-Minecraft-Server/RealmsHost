@@ -29,8 +29,6 @@ public class ChooseTownScreen extends Screen {
     private final List<Town> townList;
     private final TownButton[] townButtons = new TownButton[7];
     private static final ResourceLocation VILLAGER_TEXTURE = new ResourceLocation("textures/gui/container/villager.png");
-    private static final ResourceLocation SCROLLER_SPRITE = new ResourceLocation("container/villager/scroller");
-    private static final ResourceLocation SCROLLER_DISABLED_SPRITE = new ResourceLocation("container/villager/scroller_disabled");
     private boolean isDragging;
     private int selectedTown;
     int scrollOff;
@@ -160,6 +158,7 @@ public class ChooseTownScreen extends Screen {
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
         super.render(guiGraphics, mouseX, mouseY, delta);
         this.renderTitles(guiGraphics, mouseX, mouseY);
+        this.renderBackground(guiGraphics, mouseX, mouseY, delta);
         List<Town> townList1 = new ArrayList<>(this.townList);
         townList1.sort((town1, town2) -> {
             if (town1.isStared && !town2.isStared) {
