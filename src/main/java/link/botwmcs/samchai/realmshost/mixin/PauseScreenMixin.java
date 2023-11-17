@@ -60,6 +60,8 @@ public abstract class PauseScreenMixin extends Screen {
         GAME = Component.empty();
     }
 
+    private double savedScroll;
+
     protected PauseScreenMixin(Component component) {
         super(component);
     }
@@ -75,8 +77,9 @@ public abstract class PauseScreenMixin extends Screen {
         GridLayout.RowHelper rowHelper = gridLayout.createRowHelper(2);
 
         if (this.minecraft.isLocalServer() && !ServerConfig.CONFIG.enableRespawnFeature.get()) {
+            // Vanilla part
             rowHelper.addChild(Button.builder(RETURN_TO_GAME, (button) -> {
-                this.minecraft.setScreen((Screen)null);
+                this.minecraft.setScreen((Screen) null);
                 this.minecraft.mouseHandler.grabMouse();
             }).width(204).build(), 2, gridLayout.newCellSettings().paddingTop(50));
             rowHelper.addChild(this.openScreenButton(ADVANCEMENTS, () -> {
@@ -104,6 +107,7 @@ public abstract class PauseScreenMixin extends Screen {
                 this.minecraft.getReportingContext().draftReportHandled(this.minecraft, this, this::onDisconnect, true);
             }).width(204).build(), 2);
         } else {
+            // LTSX part
             int centeredX = this.width / 2;
             int centeredY = this.height / 2;
             int buttonStartX = centeredX + 10;
@@ -145,7 +149,13 @@ public abstract class PauseScreenMixin extends Screen {
             });
             this.addRenderableWidget(disconnectButton);
 
-            final AnnounceTextComponent announceTextComponent = new AnnounceTextComponent(10, 10, 10, 10);
+            // Add announcement board
+            final AnnounceTextComponent announceTextComponent = new AnnounceTextComponent(centeredX - 147 - 10 + 8, centeredY - 166 / 2 + 8, 147 - 16, 166 - 16);
+            announceTextComponent.setScrollAmount(this.savedScroll);
+            announceTextComponent.setOnScrolledListener((scrollAmount) -> {
+                this.savedScroll = scrollAmount;
+            });
+            this.setInitialFocus(announceTextComponent);
             this.addRenderableWidget(announceTextComponent);
 
         }
@@ -166,7 +176,6 @@ public abstract class PauseScreenMixin extends Screen {
             if (this.showPauseMenu) {
                 this.renderBackground(guiGraphics);
             }
-
             super.render(guiGraphics, mouseX, mouseY, partialTick);
             if (this.showPauseMenu && this.minecraft != null && this.minecraft.getReportingContext().hasDraftReport() && this.disconnectButton != null) {
                 guiGraphics.blit(AbstractWidget.WIDGETS_LOCATION, this.disconnectButton.getX() + this.disconnectButton.getWidth() - 17, this.disconnectButton.getY() + 3, 182, 24, 15, 15);
@@ -175,9 +184,8 @@ public abstract class PauseScreenMixin extends Screen {
             if (this.showPauseMenu) {
                 this.renderBackground(guiGraphics);
             }
-            super.render(guiGraphics, mouseX, mouseY, partialTick);
             this.renderAnnounceBoard(guiGraphics, mouseX, mouseY, partialTick);
-
+            super.render(guiGraphics, mouseX, mouseY, partialTick);
         }
     }
 
