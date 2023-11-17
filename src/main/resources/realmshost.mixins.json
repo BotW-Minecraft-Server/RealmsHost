@@ -4,6 +4,7 @@
   "package": "link.botwmcs.samchai.realmshost.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "MinecraftServerMixin",
     "PlayerListMixin",
     "ServerPlayerMixin"
   ],
@@ -11,6 +12,7 @@
     "DeathScreenMixin",
     "InventoryScreenMixin",
     "LocalPlayerMixin",
+    "PauseScreenMixin",
     "impl.rei.ConfigButtonWidgetMixin",
     "impl.rei.ConfigManagerImplMixin",
     "impl.rei.FavoritesListWidgetMixin",
