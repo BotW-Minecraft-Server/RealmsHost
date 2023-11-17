@@ -1,5 +1,6 @@
 package link.botwmcs.samchai.realmshost.mixin;
 
+import link.botwmcs.samchai.realmshost.client.gui.components.AnnounceTextComponent;
 import link.botwmcs.samchai.realmshost.client.gui.components.ColorButton;
 import link.botwmcs.samchai.realmshost.config.ServerConfig;
 import net.minecraft.SharedConstants;
@@ -143,6 +144,9 @@ public abstract class PauseScreenMixin extends Screen {
                 this.minecraft.getReportingContext().draftReportHandled(this.minecraft, this, this::onDisconnect, true);
             });
             this.addRenderableWidget(disconnectButton);
+
+            final AnnounceTextComponent announceTextComponent = new AnnounceTextComponent(10, 10, 10, 10);
+            this.addRenderableWidget(announceTextComponent);
 
         }
 

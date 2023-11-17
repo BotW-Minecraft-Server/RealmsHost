@@ -1,7 +1,9 @@
 package link.botwmcs.samchai.realmshost.client.gui.components;
 
+import link.botwmcs.samchai.realmshost.util.AnnouncementGetter;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractScrollWidget;
@@ -10,22 +12,18 @@ import net.minecraft.client.gui.layouts.GridLayout;
 import net.minecraft.client.gui.layouts.LayoutSettings;
 import net.minecraft.client.gui.layouts.SpacerElement;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
-import net.minecraft.client.gui.screens.telemetry.TelemetryEventWidget;
-import net.minecraft.client.telemetry.TelemetryEventType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
-// TODO: Announce Text Component on PauseScreen (code from TelemetryEventWidget)
+// TODO: Announce Text Component on PauseScreen (code from [TelemetryEventWidget])
 public class AnnounceTextComponent extends AbstractScrollWidget {
-    private Content content;
+    private final Content content;
     public AnnounceTextComponent(int i, int j, int k, int l) {
         super(i, j, k, l, Component.empty());
+        this.content = this.buildContent();
     }
 
     @Override
@@ -40,12 +38,33 @@ public class AnnounceTextComponent extends AbstractScrollWidget {
 
     @Override
     protected void renderContents(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-
+        int i = this.getY() + this.innerPadding();
+        int j = this.getX() + this.innerPadding();
+        guiGraphics.pose().pushPose();
+        guiGraphics.pose().translate((double)j, (double)i, 0.0);
+        this.content.container().visitWidgets((abstractWidget) -> {
+            abstractWidget.render(guiGraphics, mouseX, mouseY, partialTick);
+        });
+        guiGraphics.pose().popPose();
     }
 
     @Override
     protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
 
+    }
+
+    private Content buildContent() {
+        ContentBuilder builder = new ContentBuilder(this.containerWidth());
+        AnnouncementGetter getter = new AnnouncementGetter();
+        List<String> announcement = getter.getLines();
+        for (String line : announcement) {
+            builder.addLine(Minecraft.getInstance().font, Component.nullToEmpty(line));
+        }
+        return builder.build();
+    }
+
+    private int containerWidth() {
+        return this.width - this.totalInnerPadding();
     }
 
     @Environment(EnvType.CLIENT)
