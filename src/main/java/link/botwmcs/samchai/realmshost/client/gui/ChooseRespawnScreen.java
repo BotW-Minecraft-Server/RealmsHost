@@ -68,13 +68,14 @@ public class ChooseRespawnScreen extends Screen {
         int centeredY = this.height / 6;
         int xOffset = centeredX + 100;
         // Render scroll background
-        guiGraphics.blit(VILLAGER_TEXTURE, xOffset + 10, centeredY, 0, 180, 0.0F, 107, 256, 512, 256);
-        guiGraphics.blit(VILLAGER_TEXTURE, xOffset, centeredY, 0, 0.0F, 0.0F, 101, 256, 512, 256);
+        guiGraphics.blit(VILLAGER_TEXTURE, xOffset + 10, centeredY, 0, 180, 0.0F, 96, 165, 512, 256);
+        guiGraphics.blit(VILLAGER_TEXTURE, xOffset, centeredY, 0, 0.0F, 0.0F, 101, 165, 512, 256);
     }
     public void renderTransparentBackground(GuiGraphics guiGraphics) {
         guiGraphics.fillGradient(0, 0, this.width, this.height, -5, 1678774288, -2112876528);
     }
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
+        this.renderBackground(guiGraphics, mouseX, mouseY, delta);
         super.render(guiGraphics, mouseX, mouseY, delta);
         List<Home> homeList1 = new ArrayList<>(this.homeList);
         List<DeathCounter> deathCounterList1 = new ArrayList<>(this.deathCounterList);
@@ -150,6 +151,8 @@ public class ChooseRespawnScreen extends Screen {
             if (this.scrollOff == i - 1) {
                 m = 113;
             }
+            int SCROLLER_HEIGHT = 27;
+            int SCROLLER_WIDTH = 6;
             guiGraphics.blit(VILLAGER_TEXTURE, posX + 94, posY + 18 + m, 0, 0.0F, 199.0F, 6, 27, 512, 256);
         } else {
             guiGraphics.blit(VILLAGER_TEXTURE, posX + 94, posY + 18, 0, 6.0F, 199.0F, 6, 27, 512, 256);
@@ -158,11 +161,11 @@ public class ChooseRespawnScreen extends Screen {
     private boolean canScroll(int numOffers) {
         return numOffers > 7;
     }
-    public boolean mouseScrolled(double d, double e, double f, double g) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
         int i = this.homeList.size() + this.deathCounterList.size();
         if (this.canScroll(i)) {
             int j = i - 7;
-            this.scrollOff = Mth.clamp((int)((double)this.scrollOff - g), 0, j);
+            this.scrollOff = Mth.clamp((int)((double)this.scrollOff - delta), 0, j);
         }
         return true;
     }

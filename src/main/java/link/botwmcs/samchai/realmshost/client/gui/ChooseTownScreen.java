@@ -64,19 +64,18 @@ public class ChooseTownScreen extends Screen {
         } else {
             this.renderTransparentBackground(guiGraphics);
         }
-        // Render GUI graphics components
-        // 96
+
         int centeredX = this.width / 2 - 108 / 2;
         int centeredY = this.height / 6;
-        // Render scroll background
         if (townList.isEmpty()) {
             guiGraphics.drawCenteredString(this.font, Component.translatable("gui.botwmcs.realmshost.chooseTownScreen.noTown"), centeredX, centeredY, 0xFFFFFF);
             final AbstractWidget randomTeleportButton = addRenderableWidget(new ColorButton(this.width / 2 - 50, this.height / 2 - 50, 100, 20, Component.translatable("gui.botwmcs.realmshost.chooseTownScreen.randomTeleport"), 0x00008FE1, (button) -> {
                 // TODO: Random teleport
             }));
+            this.addRenderableWidget(randomTeleportButton);
         } else {
-            guiGraphics.blit(VILLAGER_TEXTURE, centeredX + 10, centeredY, 0, 180, 0.0F, 107, 256, 512, 256);
-            guiGraphics.blit(VILLAGER_TEXTURE, centeredX, centeredY, 0, 0.0F, 0.0F, 101, 256, 512, 256);
+            guiGraphics.blit(VILLAGER_TEXTURE, centeredX + 10, centeredY, 0, 180, 0.0F, 96, 165, 512, 256);
+            guiGraphics.blit(VILLAGER_TEXTURE, centeredX, centeredY, 0, 0.0F, 0.0F, 101, 165, 512, 256);
         }
     }
     public void renderTransparentBackground(GuiGraphics guiGraphics) {
@@ -115,17 +114,17 @@ public class ChooseTownScreen extends Screen {
             }
             guiGraphics.blit(VILLAGER_TEXTURE, posX + 94, posY + 18 + m, 0, 0.0F, 199.0F, 6, 27, 512, 256);
         } else {
-            guiGraphics.blit(VILLAGER_TEXTURE, posX + 94, posY + 18, 0, 0.0F, 199.0F, 6, 27, 512, 256);
+            guiGraphics.blit(VILLAGER_TEXTURE, posX + 94, posY + 18, 0, 6.0F, 199.0F, 6, 27, 512, 256);
         }
     }
     private boolean canScroll(int numOffers) {
         return numOffers > 7;
     }
-    public boolean mouseScrolled(double d, double e, double f, double g) {
+    public boolean mouseScrolled(double d, double e, double f) {
         int i = this.townList.size();
         if (this.canScroll(i)) {
             int j = i - 7;
-            this.scrollOff = Mth.clamp((int)((double)this.scrollOff - g), 0, j);
+            this.scrollOff = Mth.clamp((int)((double)this.scrollOff - f), 0, j);
         }
         return true;
     }
@@ -156,9 +155,9 @@ public class ChooseTownScreen extends Screen {
 
 
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
+        this.renderBackground(guiGraphics, mouseX, mouseY, delta);
         super.render(guiGraphics, mouseX, mouseY, delta);
         this.renderTitles(guiGraphics, mouseX, mouseY);
-        this.renderBackground(guiGraphics, mouseX, mouseY, delta);
         List<Town> townList1 = new ArrayList<>(this.townList);
         townList1.sort((town1, town2) -> {
             if (town1.isStared && !town2.isStared) {
