@@ -28,14 +28,6 @@ repositories {
         name = "Shedaniel"
         url "https://maven.shedaniel.me/"
     }
-    maven {
-        name = "CottonMC"
-        url = "https://server.bbkr.space/artifactory/libs-release"
-    }
-    maven {
-        name = 'WispForest'
-        url 'https://maven.wispforest.io'
-    }
 }
 
 dependencies {
@@ -72,14 +64,6 @@ dependencies {
     // REI
     modApi "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
     include "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
-
-    // LibGui
-    modImplementation "io.github.cottonmc:LibGui:${project.libgui_version}"
-    include "io.github.cottonmc:LibGui:${project.libgui_version}"
-
-    // OwO Lib GUI
-    modImplementation "io.wispforest:owo-lib:${project.owo_version}"
-    include "io.wispforest:owo-sentinel:${project.owo_version}"
 
 
 }
