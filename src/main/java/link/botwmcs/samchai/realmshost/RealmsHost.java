@@ -2,10 +2,7 @@ package link.botwmcs.samchai.realmshost;
 
 import com.mojang.logging.LogUtils;
 import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
-import link.botwmcs.samchai.realmshost.command.HomeCommand;
-import link.botwmcs.samchai.realmshost.command.ManageCommand;
-import link.botwmcs.samchai.realmshost.command.ToastCommand;
-import link.botwmcs.samchai.realmshost.command.TownCommand;
+import link.botwmcs.samchai.realmshost.command.*;
 import link.botwmcs.samchai.realmshost.config.ServerConfig;
 import link.botwmcs.samchai.realmshost.event.player.*;
 import link.botwmcs.samchai.realmshost.event.server.ReloadEvent;
@@ -46,6 +43,7 @@ public class RealmsHost implements ModInitializer {
             TownCommand.register(dispatcher);
             ToastCommand.register(dispatcher);
             HomeCommand.register(dispatcher);
+            HudCommand.register(dispatcher);
         });
     }
     private void loadC2SNetworkPackets() {

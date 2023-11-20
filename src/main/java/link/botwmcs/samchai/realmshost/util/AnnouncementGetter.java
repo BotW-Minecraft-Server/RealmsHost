@@ -26,16 +26,16 @@ public class AnnouncementGetter {
                     List<String> lines = Arrays.asList(responseBody.split("\\r?\\n"));
                     future.complete(lines);
                 } else {
+                    future.complete(List.of("Failed to get announcement."));
                     RealmsHost.LOGGER.warn("Failed to get announcement from link. Response code: " + response.code());
-                    future.complete(Arrays.asList("Loading..."));
                 }
                 response.close();
             }
 
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                future.complete(List.of("Failed to get announcement."));
                 RealmsHost.LOGGER.warn("Failed to get announcement from link.", e);
-                future.complete(Arrays.asList("Failed to get announcement."));
             }
         });
         return future;

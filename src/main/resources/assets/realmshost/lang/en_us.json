@@ -72,6 +72,10 @@
     "gui.botwmcs.realmshost.impl.minecraft.reportBugToBotwmcs": "Report",
     "gui.botwmcs.realmshost.impl.minecraft.options": "Client Options",
     "gui.botwmcs.realmshost.impl.minecraft.toOtherServer": "Bungee",
-    "gui.botwmcs.realmshost.impl.minecraft.exitGame": "Exit"
-
+    "gui.botwmcs.realmshost.impl.minecraft.exitGame": "Exit",
+    "info.botwmcs.realmshost.welcome": "Welcome to LTSX!",
+    "info.botwmcs.realmshost.nowDate": "Today is %s",
+    "info.botwmcs.realmshost.mail": "You have %s new mails.",
+    "info.botwmcs.realmshost.temp": "Temperature: %s",
+    "info.botwmcs.realmshost.havefun": "Have fun!"
 }

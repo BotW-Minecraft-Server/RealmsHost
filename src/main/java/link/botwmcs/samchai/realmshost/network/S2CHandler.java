@@ -2,11 +2,9 @@ package link.botwmcs.samchai.realmshost.network;
 
 import link.botwmcs.samchai.realmshost.client.gui.ChooseJobScreen;
 import link.botwmcs.samchai.realmshost.client.gui.ChooseTownScreen;
+import link.botwmcs.samchai.realmshost.client.gui.components.PlayerHUD;
 import link.botwmcs.samchai.realmshost.client.gui.PlayerInfoScreen;
-import link.botwmcs.samchai.realmshost.network.s2c.OpenChooseJobScreenS2CPacket;
-import link.botwmcs.samchai.realmshost.network.s2c.OpenChooseTownScreenS2CPacket;
-import link.botwmcs.samchai.realmshost.network.s2c.OpenPlayerInfoScreenS2CPacket;
-import link.botwmcs.samchai.realmshost.network.s2c.SendSystemToastS2CPacket;
+import link.botwmcs.samchai.realmshost.network.s2c.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
@@ -25,6 +23,7 @@ public class S2CHandler {
             ClientPlayNetworking.registerReceiver(OpenChooseTownScreenS2CPacket.TYPE, S2CHandler::openChooseTownScreen);
             ClientPlayNetworking.registerReceiver(SendSystemToastS2CPacket.TYPE, S2CHandler::sendSystemToast);
             ClientPlayNetworking.registerReceiver(OpenPlayerInfoScreenS2CPacket.TYPE, S2CHandler::openPlayerInfoScreen);
+            ClientPlayNetworking.registerReceiver(SendHudComponentS2CPacket.TYPE, S2CHandler::sendHudComponent);
         });
     }
 
@@ -44,5 +43,17 @@ public class S2CHandler {
     @Environment(EnvType.CLIENT)
     private static void openPlayerInfoScreen(OpenPlayerInfoScreenS2CPacket packet, Player player, PacketSender sender) {
         Minecraft.getInstance().setScreen(new PlayerInfoScreen(Component.translatable("gui.botwmcs.realmshost.playerInfoScreen.title"), packet.playerInfo(), packet.showBackground()));
+    }
+    @Environment(EnvType.CLIENT)
+    private static void sendHudComponent(SendHudComponentS2CPacket packet, Player player, PacketSender sender) {
+        Minecraft.getInstance().execute(() -> {
+            PlayerHUD.getInstance().onShowHUDMessage(Component.nullToEmpty(packet.component()), packet.stayTime() * 20 + 100);
+//            new java.util.Timer().schedule(new java.util.TimerTask() {
+//                @Override
+//                public void run() {
+//                    PlayerHUD.hideComponent();
+//                }
+//            }, packet.stayTime() * 1000L);
+        });
     }
 }

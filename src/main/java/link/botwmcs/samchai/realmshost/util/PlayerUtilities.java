@@ -5,18 +5,22 @@ import link.botwmcs.samchai.realmshost.capability.Account;
 import link.botwmcs.samchai.realmshost.capability.AccountHandler;
 import link.botwmcs.samchai.realmshost.capability.DeathCounter;
 import link.botwmcs.samchai.realmshost.capability.PlayerInfo;
-import link.botwmcs.samchai.realmshost.network.s2c.OpenChooseJobScreenS2CPacket;
-import link.botwmcs.samchai.realmshost.network.s2c.OpenChooseTownScreenS2CPacket;
-import link.botwmcs.samchai.realmshost.network.s2c.OpenPlayerInfoScreenS2CPacket;
-import link.botwmcs.samchai.realmshost.network.s2c.SendSystemToastS2CPacket;
+import link.botwmcs.samchai.realmshost.network.s2c.*;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class PlayerUtilities {
     public static boolean isPlayerFirstJoinServer(Player player) {
@@ -52,6 +56,36 @@ public class PlayerUtilities {
 
     public static void sendToast(ServerPlayer player, String title, String subTitle) {
         ServerPlayNetworking.send(player, new SendSystemToastS2CPacket(title, subTitle));
+    }
+
+    public static void sendHud(ServerPlayer serverPlayer, String component, int stayTime) {
+        ServerPlayNetworking.send(serverPlayer, new SendHudComponentS2CPacket(component, stayTime));
+    }
+
+    public static void sendHudQueue(ServerPlayer serverPlayer, List<String> list, int stayTime) {
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        for (int i = 0; i < list.size(); i++) {
+            String component = list.get(i);
+            int delay = stayTime * i;
+            scheduler.schedule(() -> sendHud(serverPlayer, component, stayTime + 100), delay, TimeUnit.SECONDS);
+        }
+        scheduler.shutdown();
+    }
+
+    public static void sendBasicInfoHud(ServerPlayer serverPlayer) {
+        List<String> list = new ArrayList<>();
+        // todo: mail system
+        int mailCount = 10;
+        // todo: temperature system
+        list.add(Component.translatable("info.botwmcs.realmshost.welcome").getString());
+        list.add(Component.translatable("info.botwmcs.realmshost.nowDate", LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/HH:mm"))).getString());
+        if (mailCount > 0) {
+            list.add(Component.translatable("info.botwmcs.realmshost.mail", mailCount).getString());
+        }
+        list.add(Component.translatable("info.botwmcs.realmshost.temp", "26 | 36.5").getString());
+        list.add(Component.translatable("info.botwmcs.realmshost.havefun").getString());
+
+        sendHudQueue(serverPlayer, list, 3);
     }
 
 

@@ -9,6 +9,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WorldJoinEvent {
     public static void onLoggedIn(Level world, Player player, BlockPos blockPos) {
         if (player.getCommandSenderWorld().isClientSide()) {
@@ -22,6 +25,10 @@ public class WorldJoinEvent {
                 PlayerUtilities.openJobChooseScreen((ServerPlayer) player, true);
             }
         } else {
-            player.sendSystemMessage(net.minecraft.network.chat.Component.nullToEmpty("Welcome back to LTSX!"));}
+            player.sendSystemMessage(net.minecraft.network.chat.Component.nullToEmpty("Welcome back to LTSX!"));
+        }
+
+        // broadcast basic info
+        PlayerUtilities.sendBasicInfoHud((ServerPlayer) player);
     }
 }

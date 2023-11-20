@@ -4,6 +4,7 @@ import link.botwmcs.samchai.realmshost.client.gui.components.AnnounceTextCompone
 import link.botwmcs.samchai.realmshost.client.gui.components.ColorButton;
 import link.botwmcs.samchai.realmshost.config.ServerConfig;
 import net.minecraft.SharedConstants;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
@@ -57,7 +58,12 @@ public abstract class PauseScreenMixin extends Screen {
 
     @Mutable @Shadow private static Component GAME = Component.translatable("menu.game");
     static {
-        GAME = Component.empty();
+        if (Minecraft.getInstance().isLocalServer() || !ServerConfig.CONFIG.enableRespawnFeature.get()) {
+            GAME = Component.translatable("menu.game");
+        } else {
+            GAME = Component.empty();
+        }
+
     }
 
     private double savedScroll;
@@ -76,7 +82,7 @@ public abstract class PauseScreenMixin extends Screen {
         gridLayout.defaultCellSetting().padding(4, 4, 4, 0);
         GridLayout.RowHelper rowHelper = gridLayout.createRowHelper(2);
 
-        if (this.minecraft.isLocalServer() && !ServerConfig.CONFIG.enableRespawnFeature.get()) {
+        if (this.minecraft.isLocalServer() || !ServerConfig.CONFIG.enableRespawnFeature.get()) {
             // Vanilla part
             rowHelper.addChild(Button.builder(RETURN_TO_GAME, (button) -> {
                 this.minecraft.setScreen((Screen) null);
@@ -150,7 +156,7 @@ public abstract class PauseScreenMixin extends Screen {
             this.addRenderableWidget(disconnectButton);
 
             // Add announcement board
-            final AnnounceTextComponent announceTextComponent = new AnnounceTextComponent(centeredX - 147 - 10 + 8, centeredY - 166 / 2 + 8, 147 - 16, 166 - 16);
+            final AnnounceTextComponent announceTextComponent = new AnnounceTextComponent(centeredX - 147 - 10, centeredY - 166 / 2, 147, 166);
             announceTextComponent.setScrollAmount(this.savedScroll);
             announceTextComponent.setOnScrolledListener((scrollAmount) -> {
                 this.savedScroll = scrollAmount;
@@ -172,7 +178,7 @@ public abstract class PauseScreenMixin extends Screen {
      */
     @Overwrite
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        if (this.minecraft.isLocalServer() && !ServerConfig.CONFIG.enableRespawnFeature.get()) {
+        if (this.minecraft.isLocalServer() || !ServerConfig.CONFIG.enableRespawnFeature.get()) {
             if (this.showPauseMenu) {
                 this.renderBackground(guiGraphics);
             }
@@ -184,7 +190,7 @@ public abstract class PauseScreenMixin extends Screen {
             if (this.showPauseMenu) {
                 this.renderBackground(guiGraphics);
             }
-            this.renderAnnounceBoard(guiGraphics, mouseX, mouseY, partialTick);
+//            this.renderAnnounceBoard(guiGraphics, mouseX, mouseY, partialTick);
             super.render(guiGraphics, mouseX, mouseY, partialTick);
         }
     }
