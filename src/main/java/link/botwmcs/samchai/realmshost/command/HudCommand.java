@@ -13,6 +13,7 @@ import javax.swing.text.html.parser.Entity;
 public class HudCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("hud")
+                .requires(source -> source.hasPermission(4))
                 .then(Commands.literal("send")
                         .then(Commands.argument("target", EntityArgument.players())
                                 .then(Commands.argument("component", StringArgumentType.string())

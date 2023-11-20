@@ -10,7 +10,7 @@ import net.minecraft.commands.arguments.EntityArgument;
 public class ToastCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("toast")
-//                .requires(source -> source.hasPermission(0))
+                .requires(source -> source.hasPermission(4))
                 .then(Commands.literal("system")
                         .then(Commands.argument("target", EntityArgument.players())
                                 .then(Commands.argument("title", StringArgumentType.string())
