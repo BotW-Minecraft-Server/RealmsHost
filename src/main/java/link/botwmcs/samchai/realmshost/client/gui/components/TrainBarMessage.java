@@ -9,11 +9,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.GameType;
 
-public class PlayerHUD {
+public class TrainBarMessage {
     private static Component currentComponent;
     private static int tick = 0;
     private static LerpedFloatCalculator componentSize = LerpedFloatCalculator.linear();
-    private static PlayerHUD instance = new PlayerHUD();
+    private static TrainBarMessage instance = new TrainBarMessage();
 
     public void onShowHUDMessage(Component component, int hiddenTick) {
         currentComponent = component;
@@ -67,7 +67,7 @@ public class PlayerHUD {
 
     }
 
-    public static PlayerHUD getInstance() {
+    public static TrainBarMessage getInstance() {
         return instance;
     }
 }

@@ -1,6 +1,6 @@
 package link.botwmcs.samchai.realmshost.client;
 
-import link.botwmcs.samchai.realmshost.client.gui.components.PlayerHUD;
+import link.botwmcs.samchai.realmshost.client.gui.components.TrainBarMessage;
 import link.botwmcs.samchai.realmshost.network.S2CHandler;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -22,8 +22,8 @@ public class RealmsHostClient implements ClientModInitializer {
 
     private void loadHUD() {
         HudRenderCallback.EVENT.register((matrixStack, tickDelta) -> {
-            PlayerHUD.getInstance().tick();
-            PlayerHUD.getInstance().render(matrixStack, tickDelta);
+            TrainBarMessage.getInstance().tick();
+            TrainBarMessage.getInstance().render(matrixStack, tickDelta);
         });
     }
 

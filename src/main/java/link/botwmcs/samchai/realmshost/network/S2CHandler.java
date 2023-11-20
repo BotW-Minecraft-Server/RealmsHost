@@ -2,7 +2,7 @@ package link.botwmcs.samchai.realmshost.network;
 
 import link.botwmcs.samchai.realmshost.client.gui.ChooseJobScreen;
 import link.botwmcs.samchai.realmshost.client.gui.ChooseTownScreen;
-import link.botwmcs.samchai.realmshost.client.gui.components.PlayerHUD;
+import link.botwmcs.samchai.realmshost.client.gui.components.TrainBarMessage;
 import link.botwmcs.samchai.realmshost.client.gui.PlayerInfoScreen;
 import link.botwmcs.samchai.realmshost.network.s2c.*;
 import net.fabricmc.api.EnvType;
@@ -47,7 +47,7 @@ public class S2CHandler {
     @Environment(EnvType.CLIENT)
     private static void sendHudComponent(SendHudComponentS2CPacket packet, Player player, PacketSender sender) {
         Minecraft.getInstance().execute(() -> {
-            PlayerHUD.getInstance().onShowHUDMessage(Component.nullToEmpty(packet.component()), packet.stayTime() * 20 + 100);
+            TrainBarMessage.getInstance().onShowHUDMessage(Component.nullToEmpty(packet.component()), packet.stayTime() * 20 + 100);
 //            new java.util.Timer().schedule(new java.util.TimerTask() {
 //                @Override
 //                public void run() {
