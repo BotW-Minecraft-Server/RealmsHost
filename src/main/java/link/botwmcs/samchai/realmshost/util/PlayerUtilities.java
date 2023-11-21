@@ -58,16 +58,30 @@ public class PlayerUtilities {
         ServerPlayNetworking.send(player, new SendSystemToastS2CPacket(title, subTitle));
     }
 
-    public static void sendHud(ServerPlayer serverPlayer, String component, int stayTime) {
+    public static void sendTrainBarHud(ServerPlayer serverPlayer, String component, int stayTime) {
         ServerPlayNetworking.send(serverPlayer, new SendHudComponentS2CPacket(component, stayTime));
     }
 
-    public static void sendHudQueue(ServerPlayer serverPlayer, List<String> list, int stayTime) {
+    public static void sendTrainBarQueue(ServerPlayer serverPlayer, List<String> list, int stayTime) {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         for (int i = 0; i < list.size(); i++) {
             String component = list.get(i);
             int delay = stayTime * i;
-            scheduler.schedule(() -> sendHud(serverPlayer, component, stayTime + 100), delay, TimeUnit.SECONDS);
+            scheduler.schedule(() -> sendTrainBarHud(serverPlayer, component, stayTime + 100), delay, TimeUnit.SECONDS);
+        }
+        scheduler.shutdown();
+    }
+
+    public static void sendBossBarHud(ServerPlayer serverPlayer, String component, int stayTime) {
+        ServerPlayNetworking.send(serverPlayer, new SendBossBarHudComponentS2CPacket(component, stayTime));
+    }
+
+    public static void sendBossBarHudQueue(ServerPlayer serverPlayer, List<String> list, int stayTime) {
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        for (int i = 0; i < list.size(); i++) {
+            String component = list.get(i);
+            int delay = stayTime * i;
+            scheduler.schedule(() -> sendBossBarHud(serverPlayer, component, stayTime + 100), delay, TimeUnit.SECONDS);
         }
         scheduler.shutdown();
     }
@@ -85,7 +99,7 @@ public class PlayerUtilities {
         list.add(Component.translatable("info.botwmcs.realmshost.temp", "26 | 36.5").getString());
         list.add(Component.translatable("info.botwmcs.realmshost.havefun").getString());
 
-        sendHudQueue(serverPlayer, list, 3);
+        sendTrainBarQueue(serverPlayer, list, 3);
     }
 
 

@@ -9,6 +9,7 @@
     "ServerPlayerMixin"
   ],
   "client": [
+    "BossHealthOverlayMixin",
     "DeathScreenMixin",
     "InventoryScreenMixin",
     "LocalPlayerMixin",

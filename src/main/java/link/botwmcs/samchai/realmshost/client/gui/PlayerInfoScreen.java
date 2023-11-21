@@ -1,9 +1,7 @@
 package link.botwmcs.samchai.realmshost.client.gui;
 
 import link.botwmcs.samchai.realmshost.capability.PlayerInfo;
-import link.botwmcs.samchai.realmshost.client.gui.components.ColorButton;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;

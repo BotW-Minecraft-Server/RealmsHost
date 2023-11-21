@@ -2,6 +2,7 @@ package link.botwmcs.samchai.realmshost.network;
 
 import link.botwmcs.samchai.realmshost.client.gui.ChooseJobScreen;
 import link.botwmcs.samchai.realmshost.client.gui.ChooseTownScreen;
+import link.botwmcs.samchai.realmshost.client.gui.components.BossBarMessage;
 import link.botwmcs.samchai.realmshost.client.gui.components.TrainBarMessage;
 import link.botwmcs.samchai.realmshost.client.gui.PlayerInfoScreen;
 import link.botwmcs.samchai.realmshost.network.s2c.*;
@@ -24,6 +25,7 @@ public class S2CHandler {
             ClientPlayNetworking.registerReceiver(SendSystemToastS2CPacket.TYPE, S2CHandler::sendSystemToast);
             ClientPlayNetworking.registerReceiver(OpenPlayerInfoScreenS2CPacket.TYPE, S2CHandler::openPlayerInfoScreen);
             ClientPlayNetworking.registerReceiver(SendHudComponentS2CPacket.TYPE, S2CHandler::sendHudComponent);
+            ClientPlayNetworking.registerReceiver(SendBossBarHudComponentS2CPacket.TYPE, S2CHandler::sendBossBarHudComponent);
         });
     }
 
@@ -48,12 +50,12 @@ public class S2CHandler {
     private static void sendHudComponent(SendHudComponentS2CPacket packet, Player player, PacketSender sender) {
         Minecraft.getInstance().execute(() -> {
             TrainBarMessage.getInstance().onShowHUDMessage(Component.nullToEmpty(packet.component()), packet.stayTime() * 20 + 100);
-//            new java.util.Timer().schedule(new java.util.TimerTask() {
-//                @Override
-//                public void run() {
-//                    PlayerHUD.hideComponent();
-//                }
-//            }, packet.stayTime() * 1000L);
+        });
+    }
+    @Environment(EnvType.CLIENT)
+    private static void sendBossBarHudComponent(SendBossBarHudComponentS2CPacket packet, Player player, PacketSender sender) {
+        Minecraft.getInstance().execute(() -> {
+            BossBarMessage.getInstance().onShowHUDMessage(Component.nullToEmpty(packet.component()), packet.stayTime() * 20 + 100);
         });
     }
 }
