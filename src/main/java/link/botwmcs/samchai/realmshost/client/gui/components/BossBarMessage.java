@@ -2,6 +2,8 @@ package link.botwmcs.samchai.realmshost.client.gui.components;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import link.botwmcs.samchai.realmshost.RealmsHost;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -9,6 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.GameType;
 
+@Environment(EnvType.CLIENT)
 public class BossBarMessage {
     private static Component currentComponent;
     private static int tick = 0;

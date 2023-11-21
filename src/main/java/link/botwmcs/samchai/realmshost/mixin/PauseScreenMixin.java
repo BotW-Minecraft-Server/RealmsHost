@@ -82,7 +82,7 @@ public abstract class PauseScreenMixin extends Screen {
         gridLayout.defaultCellSetting().padding(4, 4, 4, 0);
         GridLayout.RowHelper rowHelper = gridLayout.createRowHelper(2);
 
-        if (this.minecraft.isLocalServer() || !ServerConfig.CONFIG.enableRespawnFeature.get()) {
+        if (this.minecraft.isLocalServer() || !ServerConfig.CONFIG.enableLtsxFeature.get()) {
             // Vanilla part
             rowHelper.addChild(Button.builder(RETURN_TO_GAME, (button) -> {
                 this.minecraft.setScreen((Screen) null);
@@ -178,7 +178,7 @@ public abstract class PauseScreenMixin extends Screen {
      */
     @Overwrite
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        if (this.minecraft.isLocalServer() || !ServerConfig.CONFIG.enableRespawnFeature.get()) {
+        if (this.minecraft.isLocalServer() || !ServerConfig.CONFIG.enableLtsxFeature.get()) {
             if (this.showPauseMenu) {
                 this.renderBackground(guiGraphics);
             }
