@@ -35,7 +35,7 @@ public abstract class BossHealthOverlayMixin {
             int i = guiGraphics.guiWidth();
             int j = 12;
             if (BossBarMessage.isEnabled()) {
-                j += 20;
+                j += 25;
             }
 
             Iterator var4 = this.events.values().iterator();

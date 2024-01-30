@@ -12,7 +12,6 @@ import net.minecraft.world.phys.EntityHitResult;
 public class UsePlayerEvent {
     public static InteractionResult onUsePlayer(Player invokePlayer, Level level, InteractionHand interactionHand, Entity targetPlayer, EntityHitResult entityHitResult) {
         if (targetPlayer instanceof Player && !level.isClientSide()) {
-            // TODO: Open PlayerInfoScreen
             PlayerUtilities.openPlayerInfoScreen((ServerPlayer) invokePlayer, (ServerPlayer) targetPlayer, true);
             return InteractionResult.SUCCESS;
         }

@@ -3,7 +3,6 @@ package link.botwmcs.samchai.realmshost.util;
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
 import net.minecraft.ReportedException;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -113,9 +112,9 @@ public class ServerUtilities {
         return simpleDateFormat.format(date);
     }
 
-    public static boolean respawnPlayer(Level world, Player player, BlockPos pos) {
+    public static void respawnPlayer(Level world, Player player, BlockPos pos) {
         if (!(player instanceof ServerPlayer)) {
-            return false;
+            return;
         }
 
         MinecraftServer server = world.getServer();
@@ -123,7 +122,12 @@ public class ServerUtilities {
         serverplayer.setRespawnPosition(world.dimension(), pos, 0.0F, true, false);
         serverplayer.respawn();
         serverplayer.teleportTo(server.getLevel(world.dimension()), pos.getX(), pos.getY(), pos.getZ(), 0.0F, 0.0F);
-        return true;
+    }
+
+    public static boolean checkIsLtsxServer(MinecraftServer server) {
+        // todo
+
+        return false;
     }
 
 }

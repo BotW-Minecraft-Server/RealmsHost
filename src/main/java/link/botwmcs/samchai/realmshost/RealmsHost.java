@@ -41,9 +41,8 @@ public class RealmsHost implements ModInitializer {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             ManageCommand.register(dispatcher);
             TownCommand.register(dispatcher);
-            ToastCommand.register(dispatcher);
+            AnnounceCommand.register(dispatcher);
             HomeCommand.register(dispatcher);
-            HudCommand.register(dispatcher);
         });
     }
     private void loadC2SNetworkPackets() {

@@ -48,6 +48,13 @@ public class TownCommand {
                                                                                                     int townLevel = IntegerArgumentType.getInteger(context, "townLevel");
                                                                                                     int townFunds = IntegerArgumentType.getInteger(context, "townFunds");
                                                                                                     boolean spawnTownManagerBlock = BoolArgumentType.getBool(context, "spawnTownManagerBlock");
+                                                                                                    // todo: need fix this
+                                                                                                    //       get world level:
+                                                                                                    //       Level.RESOURCE_KEY_CODEC.parse(NbtOps.INSTANCE, counterTag.get("deathLevel")).resultOrPartial(RealmsHost.LOGGER::error).get(),
+                                                                                                    //       set world level:
+                                                                                                    //       ResourceLocation.CODEC.encodeStart(NbtOps.INSTANCE, counter.deathLevel.location()).resultOrPartial(RealmsHost.LOGGER::error).ifPresent((lambda) -> {
+                                                                                                    //                counterTag.put("deathLevel", lambda);
+                                                                                                    //            });
                                                                                                     Level world = context.getSource().getLevel();
                                                                                                     BlockPos townSpawn = townOwner.blockPosition();
                                                                                                     BlockPos townHall = townOwner.blockPosition();
@@ -57,6 +64,7 @@ public class TownCommand {
                                                                                                     BlockPos townYard = townOwner.blockPosition();
                                                                                                     if (spawnTownManagerBlock) {
                                                                                                         // TODO：Give player some town manager block that have NBT data
+                                                                                                        //      each town have block object.
                                                                                                     }
                                                                                                     if (world.getComponent(TownCompoundHandler.TOWN_COMPONENT_KEY).getAllTowns().containsKey(townName)) {
                                                                                                         context.getSource().sendFailure(Component.translatable("chat.botwmcs.realmshost.town.create.fail"));

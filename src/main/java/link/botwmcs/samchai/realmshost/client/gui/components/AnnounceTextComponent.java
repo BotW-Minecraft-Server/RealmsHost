@@ -22,7 +22,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.DoubleConsumer;
 
 @Environment(EnvType.CLIENT)
-// TODO: Announce Text Component on PauseScreen (code from [TelemetryEventWidget])
 public class AnnounceTextComponent extends AbstractScrollWidget {
     private volatile Content content;
     @Nullable

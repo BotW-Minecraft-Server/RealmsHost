@@ -46,12 +46,12 @@ public class TrainBarMessage {
             poseStack.pushPose();
             poseStack.translate(size / -2F + 91, -27, 100);
             // left blank
-            ResourceLocation createWidgets = new ResourceLocation(RealmsHost.MODID, "textures/gui/create_widgets.png");
-            guiGraphics.blit(createWidgets, -3, 0, 8, 209, 3, 16, 256, 256);
+            ResourceLocation createWidgets = new ResourceLocation(RealmsHost.MODID, "textures/gui/widgets.png");
+            guiGraphics.blit(createWidgets, -3, 0, 8, 40, 3, 16, 256, 256);
             // right blank
-            guiGraphics.blit(createWidgets, size, 0, 11, 209, 3, 16, 256, 256);
+            guiGraphics.blit(createWidgets, size, 0, 11, 40, 3, 16, 256, 256);
             // component bg
-            guiGraphics.blit(createWidgets, 0, 0, 0, 0 + (128 - size / 2F), 230, size, 16, 256, 256);
+            guiGraphics.blit(createWidgets, 0, 0, 0, 0 + (128 - size / 2F), 61, size, 16, 256, 256);
             poseStack.popPose();
 
             // render text

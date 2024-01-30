@@ -93,7 +93,6 @@ public class ChooseRespawnScreen extends Screen {
             int bgGuiStartY = this.height / 6; // int j
             int k = bgGuiStartY + 16 + 6;
             int l = bgGuiStartY + 5 + 5;
-            // TODO: Tweak render X and Y
             int bgGuiCentralX = bgGuiStartX + 108 / 2 - 5;
             int m = 0;
             this.renderScroller(guiGraphics, bgGuiStartX, bgGuiStartY, homeList1, deathCounterList1);
