@@ -111,6 +111,15 @@ As RealmsHost is designed for LTSX, it offers a series of fine-tuned features fo
 
 Additionally, RealmsHost has taken over the original MinecraftServer.class, now implemented by RealmsHost Extension (RHX). RHX offers optimization features similar to those of Paper.
 
+## RHX (RealmsHost Extension)
+
+RHX provides optimization features similar to Paper and Carpet. Like fakeplayer. And also provides tweak feature. Include:
+
+- Dynamic Distance
+- Ban High waterfall
+- Remove real-time shadow
+- And so on...
+
 ## GUI Components
 
 RealmsHost, while implementing many features, has also developed GUI components for these features, such as:
